@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
@@ -10,8 +12,10 @@ public class LevelManager : MonoBehaviour
     //Level Complete View ve Level Fail View'ın çağırması için LoadCurrentScene methoduna sahip olmak.
     //Bu method mevcut level indexine göre uygun sahneyi yüklemeli.
     
-    private int currentLevelIndex;
-    public LevelManager Instance;
+    public int currentLevelIndex;
+    private int totalScenes;
+    private Scene scene;
+    public static LevelManager Instance;
     private void Awake()
     {
         if (Instance != null)
@@ -21,21 +25,49 @@ public class LevelManager : MonoBehaviour
         else
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
     }
     private void Start()
     {
-        Scene scene;
         scene = SceneManager.GetActiveScene();
         currentLevelIndex = scene.buildIndex;
-        GameManager.Instance.OnLevelComplete += LoadCurrentScene;
+        totalScenes = SceneManager.sceneCountInBuildSettings;
+        if (currentLevelIndex == 0)
+        {
+            currentLevelIndex++;
+            StartCoroutine(LoadSceneCoroutine(currentLevelIndex));   
+        }
+        GameManager.Instance.OnLevelComplete += LevelComplete;
     }
-    
 
-    private void LoadCurrentScene()
+    private void LevelComplete()
     {
         currentLevelIndex++;
-        SceneManager.LoadScene(currentLevelIndex, LoadSceneMode.Single);
+    }
+    
+    public void LoadCurrentScene()       //OnLevelComplete Eventine eklenen method; UIManager Gelince içeriği değişecek
+    {
+        if (currentLevelIndex < totalScenes)
+        {
+            SceneManager.LoadScene(currentLevelIndex, LoadSceneMode.Single);
+        }
+        else
+        {
+            Debug.LogWarning("Son sahneye ulaşıldı, başka sahne yok!");
+        }
+        GameManager.Instance.gameState = GameManager.GameState.Gameplay;
+    }
+    private IEnumerator LoadSceneCoroutine(int sceneBuildIndex)
+    {
+        if (scene.buildIndex != 0)
+        {
+            SceneManager.LoadScene("LoadScene");
+        }
+        yield return new WaitForSeconds(1f);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneBuildIndex);
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
     }
 } 
