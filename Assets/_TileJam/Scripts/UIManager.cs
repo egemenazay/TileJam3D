@@ -3,13 +3,24 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+public enum ViewType
+{
+    LevelComplete,
+    LevelFail
+}
 
 public class UIManager : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] private GameObject levelCompleteUI;
     [SerializeField] private GameObject levelFailUI;
     [SerializeField] private Button loadButton;
+
+    [Header("Info")]
+    [SerializeField] private int counter;
+    
     public static UIManager Instance;
+    
     private void Awake()
     {
         if (Instance != null)
@@ -21,16 +32,11 @@ public class UIManager : MonoBehaviour
             Instance = this;
         }
     }
-        
-    public enum ViewType
-    {
-        LevelComplete,
-        LevelFail
-    }
+
     private void Start()
     {
-        GameManager.Instance.OnLevelComplete += () => LoadView(ViewType.LevelComplete);
-        GameManager.Instance.OnLevelFail += () => LoadView(ViewType.LevelFail);
+        GameManager.Instance.OnLevelComplete += () => OnLoadView(ViewType.LevelComplete);
+        GameManager.Instance.OnLevelFail += () => OnLoadView(ViewType.LevelFail);
         levelCompleteUI = GameObject.Find("Level/UI/LevelCompleteView");
         levelFailUI = GameObject.Find("Level/UI/LevelFailView");
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -43,7 +49,7 @@ public class UIManager : MonoBehaviour
         loadButton = null;
     }
 
-    private void LoadView(ViewType type)
+    private void OnLoadView(ViewType type)
     {
         switch (type)
         {

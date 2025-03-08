@@ -2,26 +2,26 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
+public enum GameState
+{
+    PreviousState,
+    Gameplay,
+    LevelComplete,
+    LevelFail,
+    UI
+}
 public class GameManager : MonoBehaviour
 {
-
-    //Current ve Previous Game State tutmak.
-    //Level Complete ile Level Fail methodlarına ve eventlerine sahip olmak.
-    //Game State (enum olmalı)   GameState; Gameplay, LevelComplete, LevelFail, UI
-
     public static GameManager Instance;
     public event Action OnLevelComplete;
     public event Action OnLevelFail;
     
-    public enum GameState
-    {
-        Gameplay,
-        LevelComplete,
-        LevelFail,
-        UI
-    }
-
-    public GameState gameState;
+    private GameState currentGameState;
+    public GameState CurrentGameState {get {return currentGameState;} set {currentGameState = value;}}
+    
+    
+    private GameState previousGameState;
+    public GameState PreviousGameState {get {return previousGameState;} set {previousGameState = value;}}
     private void Awake()
     {
         if (Instance != null)
@@ -36,28 +36,36 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        gameState = GameState.Gameplay;
+        currentGameState = GameState.Gameplay;
     }
 
+#if  UNITY_EDITOR
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
-            if (OnLevelComplete != null && gameState == GameState.Gameplay)
+            if (OnLevelComplete != null && currentGameState == GameState.Gameplay)
             {
-                OnLevelComplete();
-                gameState = GameState.LevelComplete;
+                OnLevelComplete.Invoke();
+                currentGameState = GameState.LevelComplete;
+                previousGameState = GameState.Gameplay;
             }
         }
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            if (OnLevelFail != null && gameState == GameState.Gameplay)
+            if (currentGameState == GameState.Gameplay)
             {
-                OnLevelFail();
-                gameState = GameState.LevelFail;
+                OnLevelFail?.Invoke();
+                currentGameState = GameState.LevelFail;
+                previousGameState = GameState.Gameplay;
             }
         }
-        Debug.Log(gameState);
+        Debug.Log(previousGameState);
     }
+
+#endif
+    
+    //complete level
+    //fail level
 }

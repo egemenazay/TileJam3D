@@ -6,14 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    //Mevcut Level Indexi tutmak
-    //Game Manager'ın eventlerini dinlemek
-    //LevelComplete Durumuna göre level indexini arttırmak
-    //Level Complete View ve Level Fail View'ın çağırması için LoadCurrentScene methoduna sahip olmak.
-    //Bu method mevcut level indexine göre uygun sahneyi yüklemeli.
+    [Header("Info")]
+    [SerializeField] private int currentLevelIndex;
+    [SerializeField] private int totalScenes;
+
     
-    public int currentLevelIndex;
-    private int totalScenes;
     private Scene scene;
     public static LevelManager Instance;
     private void Awake()
@@ -37,15 +34,15 @@ public class LevelManager : MonoBehaviour
             currentLevelIndex++;
             StartCoroutine(LoadSceneCoroutine(currentLevelIndex));   
         }
-        GameManager.Instance.OnLevelComplete += LevelComplete;
+        GameManager.Instance.OnLevelComplete += OnLevelComplete;
     }
 
-    private void LevelComplete()
+    private void OnLevelComplete()
     {
         currentLevelIndex++;
     }
     
-    public void LoadCurrentScene()       //OnLevelComplete Eventine eklenen method; UIManager Gelince içeriği değişecek
+    public void LoadCurrentScene()       
     {
         if (currentLevelIndex < totalScenes)
         {
@@ -55,7 +52,7 @@ public class LevelManager : MonoBehaviour
         {
             Debug.LogWarning("Son sahneye ulaşıldı, başka sahne yok!");
         }
-        GameManager.Instance.gameState = GameManager.GameState.Gameplay;
+        GameManager.Instance.CurrentGameState = GameState.Gameplay;
     }
     private IEnumerator LoadSceneCoroutine(int sceneBuildIndex)
     {
