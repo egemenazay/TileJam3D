@@ -37,6 +37,7 @@ public class UIManager : MonoBehaviour
     {
         levelCompleteUI.SetActive(false);
         levelFailUI.SetActive(false);
+        Debug.Log("Scene Loaded");
     }
 
     private void Start()
@@ -49,8 +50,11 @@ public class UIManager : MonoBehaviour
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        // ReSharper disable once EventUnsubscriptionViaAnonymousDelegate
+        GameManager.Instance.OnLevelComplete -= () => OnLoadView(ViewType.LevelComplete);
+        // ReSharper disable once EventUnsubscriptionViaAnonymousDelegate
+        GameManager.Instance.OnLevelFail -= () => OnLoadView(ViewType.LevelFail);
     }
- 
 
     private void OnLoadView(ViewType type)
     {

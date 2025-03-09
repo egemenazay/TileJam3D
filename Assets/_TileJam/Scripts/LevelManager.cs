@@ -36,19 +36,36 @@ public class LevelManager : MonoBehaviour
             StartCoroutine(LoadSceneCoroutine(currentLevelIndex));   
         }
         GameManager.Instance.OnLevelComplete += OnLevelComplete;
+        GameManager.Instance.OnLevelRestart += OnLevelRestart;
     }
 
     private void OnDestroy()
     {
         GameManager.Instance.OnLevelComplete -= OnLevelComplete;
+        GameManager.Instance.OnLevelRestart -= OnLevelRestart;
     }
 
     private void OnLevelComplete()
     {
         currentLevelIndex++;
     }
-    
-    public void LoadCurrentScene()       
+
+
+    private void OnLevelRestart()
+    {
+        if (GameManager.Instance.CurrentGameState == GameState.LevelComplete)
+        {
+            currentLevelIndex--;
+        }
+        LoadCurrentScene();
+    }
+
+    private void Update()
+    {
+        Debug.Log(GameManager.Instance.CurrentGameState);
+    }
+
+    public void LoadCurrentScene()       //This functions used in buttons 
     {
         if (currentLevelIndex < totalScenes)
         {
@@ -60,6 +77,7 @@ public class LevelManager : MonoBehaviour
         }
         GameManager.Instance.CurrentGameState = GameState.Gameplay;
     }
+    
     private IEnumerator LoadSceneCoroutine(int sceneBuildIndex)
     {
         if (scene.buildIndex != 0)

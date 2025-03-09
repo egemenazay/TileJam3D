@@ -66,11 +66,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            if (currentGameState == GameState.Gameplay)
-            {
-                OnLevelRestart?.Invoke();
-                previousGameState = GameState.Gameplay;
-            }
+            OnLevelRestart?.Invoke();
             Debug.Log("Level Restarted");
         }
     }
