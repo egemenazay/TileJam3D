@@ -10,6 +10,14 @@ public enum GameState
     LevelFail,
     UI
 }
+
+public enum LevelFailType
+{
+    TimeOut,
+    OutOfArea,
+    DeadEnd,
+    DebugType
+}
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
@@ -23,6 +31,8 @@ public class GameManager : MonoBehaviour
     
     private GameState previousGameState;
     public GameState PreviousGameState {get {return previousGameState;} set {previousGameState = value;}}
+
+    private LevelFailType currentLevelFailType;
     
     private void Awake()
     {
@@ -61,6 +71,7 @@ public class GameManager : MonoBehaviour
                 OnLevelFail?.Invoke();
                 currentGameState = GameState.LevelFail;
                 previousGameState = GameState.Gameplay;
+                LevelFail(LevelFailType.DebugType);
             }
         }
 
@@ -72,7 +83,9 @@ public class GameManager : MonoBehaviour
     }
 
 #endif
-    
-    //complete level
-    //fail level
+    private void LevelFail(LevelFailType levelFailType) //Purpose: Show why game failed in UI
+    {
+        currentLevelFailType = levelFailType;
+        Debug.LogWarning(currentGameState);
+    }
 }

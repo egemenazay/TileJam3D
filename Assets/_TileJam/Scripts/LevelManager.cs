@@ -57,7 +57,7 @@ public class LevelManager : MonoBehaviour
         {
             currentLevelIndex--;
         }
-        LoadCurrentScene();
+        LoadCurrentScene();  //for now restart is made by a function automatically, this event launched by a button in future
     }
 
     private void Update()

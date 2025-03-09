@@ -65,6 +65,7 @@ public class UIManager : MonoBehaviour
                 break;
             case ViewType.LevelFail:
                 levelFailUI.SetActive(true);
+                //GameManager function LevelFailType will came here and shows why game failed 
                 break;
         }
     }
