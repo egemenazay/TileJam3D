@@ -14,7 +14,6 @@ public class UIManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject levelCompleteUI;
     [SerializeField] private GameObject levelFailUI;
-    [SerializeField] private Button loadButton;
 
     [Header("Info")]
     [SerializeField] private int counter;
@@ -31,23 +30,27 @@ public class UIManager : MonoBehaviour
         {
             Instance = this;
         }
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        levelCompleteUI.SetActive(false);
+        levelFailUI.SetActive(false);
     }
 
     private void Start()
     {
         GameManager.Instance.OnLevelComplete += () => OnLoadView(ViewType.LevelComplete);
         GameManager.Instance.OnLevelFail += () => OnLoadView(ViewType.LevelFail);
-        levelCompleteUI = GameObject.Find("Level/UI/LevelCompleteView");
-        levelFailUI = GameObject.Find("Level/UI/LevelFailView");
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        
     }
     
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    private void OnDestroy()
     {
-        levelCompleteUI = GameObject.Find("Level/UI/LevelCompleteView");
-        levelFailUI = GameObject.Find("Level/UI/LevelFailView");
-        loadButton = null;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
+ 
 
     private void OnLoadView(ViewType type)
     {
@@ -60,8 +63,5 @@ public class UIManager : MonoBehaviour
                 levelFailUI.SetActive(true);
                 break;
         }
-        loadButton = GameObject.Find("LoadLevelButton").GetComponent<Button>();
-        loadButton.onClick.RemoveAllListeners();
-        loadButton.onClick.AddListener((() => LevelManager.Instance.LoadCurrentScene()));
     }
 }

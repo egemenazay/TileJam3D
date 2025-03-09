@@ -13,15 +13,17 @@ public enum GameState
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    
     public event Action OnLevelComplete;
     public event Action OnLevelFail;
+    public event Action OnLevelRestart;
     
     private GameState currentGameState;
     public GameState CurrentGameState {get {return currentGameState;} set {currentGameState = value;}}
     
-    
     private GameState previousGameState;
     public GameState PreviousGameState {get {return previousGameState;} set {previousGameState = value;}}
+    
     private void Awake()
     {
         if (Instance != null)
@@ -44,9 +46,9 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
-            if (OnLevelComplete != null && currentGameState == GameState.Gameplay)
+            if (currentGameState == GameState.Gameplay)
             {
-                OnLevelComplete.Invoke();
+                OnLevelComplete?.Invoke();
                 currentGameState = GameState.LevelComplete;
                 previousGameState = GameState.Gameplay;
             }
@@ -61,7 +63,16 @@ public class GameManager : MonoBehaviour
                 previousGameState = GameState.Gameplay;
             }
         }
-        Debug.Log(previousGameState);
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (currentGameState == GameState.Gameplay)
+            {
+                OnLevelRestart?.Invoke();
+                previousGameState = GameState.Gameplay;
+            }
+            Debug.Log("Level Restarted");
+        }
     }
 
 #endif

@@ -13,6 +13,7 @@ public class LevelManager : MonoBehaviour
     
     private Scene scene;
     public static LevelManager Instance;
+    
     private void Awake()
     {
         if (Instance != null)
@@ -35,6 +36,11 @@ public class LevelManager : MonoBehaviour
             StartCoroutine(LoadSceneCoroutine(currentLevelIndex));   
         }
         GameManager.Instance.OnLevelComplete += OnLevelComplete;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.OnLevelComplete -= OnLevelComplete;
     }
 
     private void OnLevelComplete()
