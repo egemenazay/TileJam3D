@@ -1,12 +1,12 @@
-using System;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public enum ViewType
 {
     LevelComplete,
-    LevelFail
+    LevelFail,
+    Gameplay
 }
 
 public class UIManager : MonoBehaviour
@@ -14,9 +14,8 @@ public class UIManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject levelCompleteUI;
     [SerializeField] private GameObject levelFailUI;
-
-    [Header("Info")]
-    [SerializeField] private int counter;
+    [SerializeField] private GameObject gameplayUI;
+    [SerializeField] private TMP_Text currentlevelText;
     
     public static UIManager Instance;
     

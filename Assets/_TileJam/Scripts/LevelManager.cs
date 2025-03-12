@@ -1,14 +1,12 @@
-using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
     [Header("Info")]
-    [SerializeField] private int currentLevelIndex;
-    [SerializeField] private int totalScenes;
+    [SerializeField] private int currentLevelIndex;   //level index value equals scene index 
+    [SerializeField] private int totalScenes;  //"0" is loading scene, other values are same with level
 
     
     private Scene scene;
@@ -30,9 +28,14 @@ public class LevelManager : MonoBehaviour
         scene = SceneManager.GetActiveScene();
         currentLevelIndex = scene.buildIndex;
         totalScenes = SceneManager.sceneCountInBuildSettings;
-        if (currentLevelIndex == 0)
+        if (currentLevelIndex == 0)   //This "if" used when game starts normally from loading scene
         {
-            currentLevelIndex++;
+            if (PlayerPrefs.GetInt("LevelIndex") == 0)  //when game first launched if 0 level saved this "if" starts game at level1
+            {
+                currentLevelIndex++;
+                PlayerPrefs.SetInt("LevelIndex",currentLevelIndex);
+            }
+            currentLevelIndex = PlayerPrefs.GetInt("LevelIndex");
             StartCoroutine(LoadSceneCoroutine(currentLevelIndex));   
         }
         GameManager.Instance.OnLevelComplete += OnLevelComplete;
@@ -47,7 +50,15 @@ public class LevelManager : MonoBehaviour
 
     private void OnLevelComplete()
     {
-        currentLevelIndex++;
+        if (currentLevelIndex < (totalScenes-1))
+        {
+            currentLevelIndex++;
+        }
+        else
+        {
+            currentLevelIndex = 1;
+        }
+        PlayerPrefs.SetInt("LevelIndex",currentLevelIndex);
     }
 
 
