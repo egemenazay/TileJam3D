@@ -281,7 +281,7 @@ Material:
     - _NormalMapIntensity: 1
     - _OcclusionMapIntensity: 1
     - _OcclusionStrength: 1
-    - _OptionsTab: 0
+    - _OptionsTab: 1
     - _Outline: 3
     - _OutlineData: 0
     - _OutlineFadeMax: 2
@@ -300,7 +300,7 @@ Material:
     - _Roughness: 0.5
     - _Saturation: 1
     - _SketchMapScale: 1
-    - _Smoothness: 0.5
+    - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
     - _Specular: 1
     - _SpecularHighlights: 1

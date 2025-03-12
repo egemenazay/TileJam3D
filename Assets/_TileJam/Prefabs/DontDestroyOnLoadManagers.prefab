@@ -1972,8 +1972,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelCompleteUI: {fileID: 3198524218049299947}
   levelFailUI: {fileID: 7058349511555778163}
-  levelIndexText: {fileID: 0}
-  counter: 0
+  gameplayUI: {fileID: 8462821484161160987}
+  currentlevelText: {fileID: 8321434928028875122}
 --- !u!1 &8339781503780835754
 GameObject:
   m_ObjectHideFlags: 0

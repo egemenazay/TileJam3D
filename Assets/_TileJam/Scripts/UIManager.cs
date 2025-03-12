@@ -17,8 +17,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject gameplayUI;
     [SerializeField] private TMP_Text currentlevelText;
     
-    public static UIManager Instance;
+    [Header("Info")]
+    [SerializeField]private int fakeLevelCount;
     
+    public static UIManager Instance;
     private void Awake()
     {
         if (Instance != null)
@@ -36,14 +38,21 @@ public class UIManager : MonoBehaviour
     {
         levelCompleteUI.SetActive(false);
         levelFailUI.SetActive(false);
+        gameplayUI.SetActive(true);
+        currentlevelText.text = "Level: " + fakeLevelCount;
         Debug.Log("Scene Loaded");
     }
 
     private void Start()
     {
+        if (LevelManager.Instance.CurrentLevelIndex == 0)
+        {
+            gameplayUI.SetActive(false);
+        }
+        fakeLevelCount = PlayerPrefs.GetInt("LevelIndex");
+        currentlevelText.text = "Level: " + fakeLevelCount;
         GameManager.Instance.OnLevelComplete += () => OnLoadView(ViewType.LevelComplete);
         GameManager.Instance.OnLevelFail += () => OnLoadView(ViewType.LevelFail);
-        
     }
     
     private void OnDestroy()
@@ -57,10 +66,12 @@ public class UIManager : MonoBehaviour
 
     private void OnLoadView(ViewType type)
     {
+        gameplayUI.SetActive(false);
         switch (type)
         {
             case ViewType.LevelComplete:
                 levelCompleteUI.SetActive(true);
+                fakeLevelCount++;
                 break;
             case ViewType.LevelFail:
                 levelFailUI.SetActive(true);
