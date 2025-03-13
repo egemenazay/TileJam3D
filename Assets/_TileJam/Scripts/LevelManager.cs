@@ -1,4 +1,5 @@
 using System.Collections;
+using _TileJam.Scripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -34,12 +35,12 @@ public class LevelManager : MonoBehaviour
         totalScenes = SceneManager.sceneCountInBuildSettings;
         if (currentLevelIndex == 0)   //This "if" used when game starts normally from loading scene
         {
-            if (PlayerPrefs.GetInt("LevelIndex") == 0)  //when game first launched if 0 level saved this "if" starts game at level1
+            if (PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex) == 0)  //when game first launched if 0 level saved this "if" starts game at level1
             {
                 currentLevelIndex++;
-                PlayerPrefs.SetInt("LevelIndex",currentLevelIndex);
+                PlayerPrefs.SetInt(PlayerPrefKeys.LevelIndex ,currentLevelIndex);
             }
-            currentLevelIndex = PlayerPrefs.GetInt("LevelIndex");
+            currentLevelIndex = PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex);
             StartCoroutine(LoadSceneCoroutine(currentLevelIndex));   
         }
         GameManager.Instance.OnLevelComplete += OnLevelComplete;
@@ -62,7 +63,7 @@ public class LevelManager : MonoBehaviour
         {
             currentLevelIndex = 1;
         }
-        PlayerPrefs.SetInt("LevelIndex",currentLevelIndex);
+        PlayerPrefs.SetInt(PlayerPrefKeys.LevelIndex,currentLevelIndex);
     }
 
 
@@ -72,6 +73,7 @@ public class LevelManager : MonoBehaviour
         {
             currentLevelIndex--;
         }
+        
         LoadCurrentScene();  //for now restart is made by a function automatically, this event launched by a button in future
     }
 
@@ -84,13 +86,9 @@ public class LevelManager : MonoBehaviour
     {
         if (currentLevelIndex < totalScenes)
         {
+            GameManager.Instance.ChangeGameState(GameState.Gameplay);
             SceneManager.LoadScene(currentLevelIndex, LoadSceneMode.Single);
         }
-        else
-        {
-            Debug.LogWarning("Son sahneye ulaşıldı, başka sahne yok!");
-        }
-        GameManager.Instance.CurrentGameState = GameState.Gameplay;
     }
     
     private IEnumerator LoadSceneCoroutine(int sceneBuildIndex)

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum GameState
 {
@@ -25,11 +26,11 @@ public class GameManager : MonoBehaviour
     public event Action OnLevelFail;
     public event Action OnLevelRestart;
     
-    private GameState currentGameState;
-    public GameState CurrentGameState {get {return currentGameState;} set {currentGameState = value;}}
-    
-    private GameState previousGameState;
-    public GameState PreviousGameState {get {return previousGameState;} set {previousGameState = value;}}
+    [SerializeField] private GameState currentGameState;
+    public GameState CurrentGameState => currentGameState;
+
+    [SerializeField] private GameState previousGameState;
+    public GameState PreviousGameState => previousGameState;
 
     private LevelFailType currentLevelFailType;
     
@@ -51,15 +52,14 @@ public class GameManager : MonoBehaviour
     }
 
 #if  UNITY_EDITOR
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
             if (currentGameState == GameState.Gameplay)
             {
                 OnLevelComplete?.Invoke();
-                currentGameState = GameState.LevelComplete;
-                previousGameState = GameState.Gameplay;
+                ChangeGameState(GameState.LevelComplete);
             }
         }
 
@@ -68,8 +68,7 @@ public class GameManager : MonoBehaviour
             if (currentGameState == GameState.Gameplay)
             {
                 OnLevelFail?.Invoke();
-                currentGameState = GameState.LevelFail;
-                previousGameState = GameState.Gameplay;
+                ChangeGameState(GameState.LevelFail);
                 LevelFail(LevelFailType.DebugType);
             }
         }
@@ -82,9 +81,14 @@ public class GameManager : MonoBehaviour
     }
 
 #endif
+    
     private void LevelFail(LevelFailType levelFailType) //Purpose: Show why game failed in UI
     {
         currentLevelFailType = levelFailType;
-        Debug.LogWarning(currentGameState);
+    }
+    public void ChangeGameState(GameState newGameState)
+    {
+        previousGameState = currentGameState;
+        currentGameState = newGameState;
     }
 }

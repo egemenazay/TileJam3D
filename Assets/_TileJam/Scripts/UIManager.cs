@@ -1,3 +1,4 @@
+using _TileJam.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,7 +19,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text currentlevelText;
     
     [Header("Info")]
-    [SerializeField]private int fakeLevelCount;
+    [SerializeField]private int fakeLevelCount = 1;
     
     public static UIManager Instance;
     private void Awake()
@@ -49,7 +50,11 @@ public class UIManager : MonoBehaviour
         {
             gameplayUI.SetActive(false);
         }
-        fakeLevelCount = PlayerPrefs.GetInt("LevelIndex");
+        fakeLevelCount = PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex);
+        if (fakeLevelCount == 0) // When game launches first time there is no saved index, thats why fakeLevelCount starts from 0 this "if" statement fixes this
+        {
+            fakeLevelCount++;
+        }
         currentlevelText.text = "Level: " + fakeLevelCount;
         GameManager.Instance.OnLevelComplete += () => OnLoadView(ViewType.LevelComplete);
         GameManager.Instance.OnLevelFail += () => OnLoadView(ViewType.LevelFail);
@@ -75,7 +80,7 @@ public class UIManager : MonoBehaviour
                 break;
             case ViewType.LevelFail:
                 levelFailUI.SetActive(true);
-                //GameManager function LevelFailType will came here and shows why game failed 
+                //TODO: GameManager function LevelFailType will came here and shows why game failed 
                 break;
         }
     }
