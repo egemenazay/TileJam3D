@@ -1458,6 +1458,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6435a2aa5c0050a40981401b6ca42941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentGameState: 0
+  previousGameState: 0
 --- !u!1 &5775134206803366047
 GameObject:
   m_ObjectHideFlags: 0
@@ -1970,10 +1972,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 247ba51990298214995dd5ee37f69320, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelCompleteUI: {fileID: 3198524218049299947}
-  levelFailUI: {fileID: 7058349511555778163}
-  gameplayUI: {fileID: 8462821484161160987}
+  levelCompleteView: {fileID: 3198524218049299947}
+  levelFailView: {fileID: 7058349511555778163}
+  gameplayView: {fileID: 8462821484161160987}
   currentlevelText: {fileID: 8321434928028875122}
+  fakeLevelCount: 1
 --- !u!1 &8339781503780835754
 GameObject:
   m_ObjectHideFlags: 0

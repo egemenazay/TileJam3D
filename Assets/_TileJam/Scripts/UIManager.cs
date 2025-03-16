@@ -2,6 +2,7 @@ using _TileJam.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public enum ViewType
 {
@@ -12,14 +13,15 @@ public enum ViewType
 
 public class UIManager : MonoBehaviour
 {
+    [FormerlySerializedAs("levelCompleteUI")]
     [Header("References")]
-    [SerializeField] private GameObject levelCompleteUI;
-    [SerializeField] private GameObject levelFailUI;
-    [SerializeField] private GameObject gameplayUI;
+    [SerializeField] private GameObject levelCompleteView;
+    [SerializeField] private GameObject levelFailView;
+    [SerializeField] private GameObject gameplayView;
     [SerializeField] private TMP_Text currentlevelText;
     
     [Header("Info")]
-    [SerializeField]private int fakeLevelCount = 1;
+    [SerializeField]private int fakeLevelIndex = 1; //Level index in UI
     
     public static UIManager Instance;
     private void Awake()
@@ -37,10 +39,10 @@ public class UIManager : MonoBehaviour
     
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        levelCompleteUI.SetActive(false);
-        levelFailUI.SetActive(false);
-        gameplayUI.SetActive(true);
-        currentlevelText.text = "Level: " + fakeLevelCount;
+        levelCompleteView.SetActive(false);
+        levelFailView.SetActive(false);
+        gameplayView.SetActive(true);
+        currentlevelText.text = "Level: " + fakeLevelIndex;
         Debug.Log("Scene Loaded");
     }
 
@@ -48,14 +50,15 @@ public class UIManager : MonoBehaviour
     {
         if (LevelManager.Instance.CurrentLevelIndex == 0)
         {
-            gameplayUI.SetActive(false);
+            gameplayView.SetActive(false);
         }
-        fakeLevelCount = PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex);
-        if (fakeLevelCount == 0) // When game launches first time there is no saved index, thats why fakeLevelCount starts from 0 this "if" statement fixes this
+        fakeLevelIndex = PlayerPrefs.GetInt(PlayerPrefKeys.FakeLevelIndex);
+        if (PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex) == 0) // When game launches first time there is no saved index,
         {
-            fakeLevelCount++;
+            fakeLevelIndex++;
+            SaveFakeLevelIndex();
         }
-        currentlevelText.text = "Level: " + fakeLevelCount;
+        currentlevelText.text = "Level: " + fakeLevelIndex;
         GameManager.Instance.OnLevelComplete += () => OnLoadView(ViewType.LevelComplete);
         GameManager.Instance.OnLevelFail += () => OnLoadView(ViewType.LevelFail);
     }
@@ -71,17 +74,23 @@ public class UIManager : MonoBehaviour
 
     private void OnLoadView(ViewType type)
     {
-        gameplayUI.SetActive(false);
+        gameplayView.SetActive(false);
         switch (type)
         {
             case ViewType.LevelComplete:
-                levelCompleteUI.SetActive(true);
-                fakeLevelCount++;
+                levelCompleteView.SetActive(true);
+                fakeLevelIndex++;
+                SaveFakeLevelIndex();
                 break;
             case ViewType.LevelFail:
-                levelFailUI.SetActive(true);
+                levelFailView.SetActive(true);
                 //TODO: GameManager function LevelFailType will came here and shows why game failed 
                 break;
         }
+    }
+
+    private void SaveFakeLevelIndex()
+    {
+        PlayerPrefs.SetInt(PlayerPrefKeys.FakeLevelIndex,fakeLevelIndex);
     }
 }

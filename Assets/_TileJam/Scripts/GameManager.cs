@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 public enum GameState
 {
-    PreviousState,
     Gameplay,
     LevelComplete,
     LevelFail,
@@ -26,12 +25,12 @@ public class GameManager : MonoBehaviour
     public event Action OnLevelFail;
     public event Action OnLevelRestart;
     
+    [Header("Info - Do not change")]
     [SerializeField] private GameState currentGameState;
-    public GameState CurrentGameState => currentGameState;
-
     [SerializeField] private GameState previousGameState;
+    public GameState CurrentGameState => currentGameState;
     public GameState PreviousGameState => previousGameState;
-
+    
     private LevelFailType currentLevelFailType;
     
     private void Awake()
@@ -69,7 +68,7 @@ public class GameManager : MonoBehaviour
             {
                 OnLevelFail?.Invoke();
                 ChangeGameState(GameState.LevelFail);
-                LevelFail(LevelFailType.DebugType);
+                SetLevelFail(LevelFailType.DebugType);
             }
         }
 
@@ -82,7 +81,7 @@ public class GameManager : MonoBehaviour
 
 #endif
     
-    private void LevelFail(LevelFailType levelFailType) //Purpose: Show why game failed in UI
+    private void SetLevelFail(LevelFailType levelFailType)
     {
         currentLevelFailType = levelFailType;
     }
