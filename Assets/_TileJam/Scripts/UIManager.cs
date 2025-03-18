@@ -48,10 +48,6 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        if (LevelManager.Instance.CurrentLevelIndex == 0)
-        {
-            gameplayView.SetActive(false);
-        }
         fakeLevelIndex = PlayerPrefs.GetInt(PlayerPrefKeys.FakeLevelIndex);
         if (PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex) == 0) // When game launches first time there is no saved index,
         {

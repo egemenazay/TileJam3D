@@ -297,6 +297,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: DontDestroyOnLoadManagers
       objectReference: {fileID: 0}
+    - target: {fileID: 6110640619954627698, guid: f6381a1fbaba08746a3973aa0e91d195, type: 3}
+      propertyPath: gameplayView
+      value: 
+      objectReference: {fileID: 1723455089}
+    - target: {fileID: 6110640619954627698, guid: f6381a1fbaba08746a3973aa0e91d195, type: 3}
+      propertyPath: levelFailView
+      value: 
+      objectReference: {fileID: 1485078180}
     - target: {fileID: 8462821484161160987, guid: f6381a1fbaba08746a3973aa0e91d195, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -586,6 +594,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1485078180 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7058349511555778163, guid: f6381a1fbaba08746a3973aa0e91d195, type: 3}
+  m_PrefabInstance: {fileID: 705933286}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1723455089 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8462821484161160987, guid: f6381a1fbaba08746a3973aa0e91d195, type: 3}
+  m_PrefabInstance: {fileID: 705933286}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2034112096
 GameObject:
   m_ObjectHideFlags: 0
