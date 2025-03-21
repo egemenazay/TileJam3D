@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
     [Header("Info")]
     [SerializeField]private int fakeLevelIndex = 1; //Level index in UI
     
-    private Dictionary<ViewType, Canvas> viewDictionary = new Dictionary<ViewType, Canvas>();
+    private Dictionary<ViewType, Canvas> viewList = new Dictionary<ViewType, Canvas>();
     
     public static UIManager Instance;
     private void Awake()
@@ -40,15 +40,6 @@ public class UIManager : MonoBehaviour
         AddViewsToList();
     }
     
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        viewDictionary[ViewType.LevelComplete].enabled = false;
-        viewDictionary[ViewType.LevelFail].enabled = false;
-        viewDictionary[ViewType.Gameplay].enabled = true;
-        currentlevelText.text = "Level: " + fakeLevelIndex;
-        Debug.Log("Scene Loaded");
-    }
-
     private void Start()
     {
         fakeLevelIndex = PlayerPrefs.GetInt(PlayerPrefKeys.FakeLevelIndex);
@@ -62,6 +53,33 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.OnLevelFail += () => OnLoadView(ViewType.LevelFail);
     }
     
+    
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        viewList[ViewType.LevelComplete].enabled = false;
+        viewList[ViewType.LevelFail].enabled = false;
+        viewList[ViewType.Gameplay].enabled = true;
+        currentlevelText.text = "Level: " + fakeLevelIndex;
+        Debug.Log("Scene Loaded");
+    }
+
+    private void OnLoadView(ViewType type)
+    {
+        viewList[ViewType.Gameplay].enabled = false;
+        switch (type)
+        {
+            case ViewType.LevelComplete:
+                viewList[ViewType.LevelComplete].enabled = true;
+                fakeLevelIndex++;
+                SaveFakeLevelIndex();
+                break;
+            case ViewType.LevelFail:
+                viewList[ViewType.LevelFail].enabled = true;
+                //TODO: GameManager function LevelFailType will came here and shows why game failed 
+                break;
+        }
+    }
+    
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
@@ -70,24 +88,8 @@ public class UIManager : MonoBehaviour
         // ReSharper disable once EventUnsubscriptionViaAnonymousDelegate
         GameManager.Instance.OnLevelFail -= () => OnLoadView(ViewType.LevelFail);
     }
-
-    private void OnLoadView(ViewType type)
-    {
-        viewDictionary[ViewType.Gameplay].enabled = false;
-        switch (type)
-        {
-            case ViewType.LevelComplete:
-                viewDictionary[ViewType.LevelComplete].enabled = true;
-                fakeLevelIndex++;
-                SaveFakeLevelIndex();
-                break;
-            case ViewType.LevelFail:
-                viewDictionary[ViewType.LevelFail].enabled = true;
-                //TODO: GameManager function LevelFailType will came here and shows why game failed 
-                break;
-        }
-    }
-
+    
+    
     private void SaveFakeLevelIndex()
     {
         PlayerPrefs.SetInt(PlayerPrefKeys.FakeLevelIndex,fakeLevelIndex);
@@ -95,8 +97,8 @@ public class UIManager : MonoBehaviour
 
     private void AddViewsToList()
     {
-        viewDictionary.Add(ViewType.Gameplay, gameplayView);
-        viewDictionary.Add(ViewType.LevelComplete, levelCompleteView);
-        viewDictionary.Add(ViewType.LevelFail, levelFailView);
+        viewList.Add(ViewType.Gameplay, gameplayView);
+        viewList.Add(ViewType.LevelComplete, levelCompleteView);
+        viewList.Add(ViewType.LevelFail, levelFailView);
     }
 }

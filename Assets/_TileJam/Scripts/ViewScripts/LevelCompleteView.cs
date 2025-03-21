@@ -14,8 +14,8 @@
 
         private void OnLevelComplete()  //open olacak
         {
-            TextAnimation();
-            ButtonAnimation();
+            PlayTextAnimation();
+            PlayButtonAnimation();
         }
     }
 }

@@ -13,7 +13,6 @@ namespace _TileJam.Scripts.ViewScripts
         //there is gonna be a method on childs of these baseview where they are gonna subscribe to levelcomplete/fail events
         [SerializeField] private RectTransform textRectTransform;
         [SerializeField] private RectTransform buttonRectTransform;
-        [SerializeField] private GameObject stars;
 
         public virtual void Start()
         {
@@ -31,13 +30,13 @@ namespace _TileJam.Scripts.ViewScripts
         
         //refresh methodu (open'da çağır, animasyonlardan önce kendini sıfırlasın)
 
-        protected void TextAnimation()
+        protected void PlayTextAnimation()
         {
             textRectTransform.localScale = new Vector3(0f,2f,1f);
             textRectTransform.DOScaleX(2f, 1f);
         }
 
-        protected void ButtonAnimation()
+        protected void PlayButtonAnimation()
         {
             buttonRectTransform.localScale = new Vector3(0f,0f,1f);
             buttonRectTransform.DOScale(new Vector3(2f, 2f, 1f), 0.4f);
