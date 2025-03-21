@@ -7,6 +7,12 @@ namespace _TileJam.Scripts.ViewScripts
             GameManager.Instance.OnLevelFail += OnLevelFail;
         }
 
+        protected override void OnDestroy()
+        {
+            GameManager.Instance.OnLevelFail += OnLevelFail;
+
+        }
+
         private void OnLevelFail()
         {
             TextAnimation();

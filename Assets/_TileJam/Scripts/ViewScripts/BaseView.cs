@@ -7,6 +7,7 @@ namespace _TileJam.Scripts.ViewScripts
     public abstract class BaseView : MonoBehaviour
     {
         [Header("References")] 
+        // canvas tut
         //these objects going to have animations
         //animations play when event is fired up
         //there is gonna be a method on childs of these baseview where they are gonna subscribe to levelcomplete/fail events
@@ -16,8 +17,19 @@ namespace _TileJam.Scripts.ViewScripts
 
         public virtual void Start()
         {
-            textRectTransform.localScale = new Vector3(0f,2f,1f);
+            textRectTransform.localScale = new Vector3(0f,2f,1f); //bunu refresh methoduna taşı
         }
+
+        protected virtual void OnDestroy()
+        {
+            
+        }
+
+        //open methodu
+        
+        //close methodu
+        
+        //refresh methodu (open'da çağır, animasyonlardan önce kendini sıfırlasın)
 
         protected void TextAnimation()
         {

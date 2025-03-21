@@ -4,10 +4,15 @@
     {
         public override void Start()
         {
-            GameManager.Instance.OnLevelComplete += OnLevelComplete;
+            GameManager.Instance.OnLevelComplete += OnLevelComplete; //open'a abone ol
         }
 
-        private void OnLevelComplete()
+        protected override void OnDestroy()
+        {
+            GameManager.Instance.OnLevelComplete -= OnLevelComplete;
+        }
+
+        private void OnLevelComplete()  //open olacak
         {
             TextAnimation();
             ButtonAnimation();
