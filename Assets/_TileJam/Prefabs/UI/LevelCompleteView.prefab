@@ -222,7 +222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2862302483414913606}
   m_Layer: 5
-  m_Name: Starts
+  m_Name: Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -240,8 +240,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6185839177715801747}
   - {fileID: 999931563007387673}
+  - {fileID: 6185839177715801747}
   - {fileID: 6311301746976422982}
   m_Father: {fileID: 4784726889915958719}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -262,7 +262,7 @@ GameObject:
   - component: {fileID: 7570663509474828329}
   - component: {fileID: 1313116380105049367}
   m_Layer: 5
-  m_Name: Star (2)
+  m_Name: Star 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -284,7 +284,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 200, y: 280}
+  m_AnchoredPosition: {x: 200, y: 250}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7570663509474828329
@@ -337,7 +337,7 @@ GameObject:
   - component: {fileID: 2391295076108503896}
   - component: {fileID: 742076970470657691}
   m_Layer: 5
-  m_Name: Star (1)
+  m_Name: Star 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -359,7 +359,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -200, y: 280}
+  m_AnchoredPosition: {x: -200, y: 250}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2391295076108503896
@@ -412,7 +412,7 @@ GameObject:
   - component: {fileID: 7462788967137409731}
   - component: {fileID: 165523905719865656}
   m_Layer: 5
-  m_Name: Star
+  m_Name: Star 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -864,8 +864,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ba6f93106084dc29e31d1c804bd30dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 1685776566978626791}
   textRectTransform: {fileID: 43020740163374864}
   buttonRectTransform: {fileID: 7111240322494347147}
+  starOneRectTransform: {fileID: 999931563007387673}
+  starTwoRectTransform: {fileID: 6185839177715801747}
+  starThreeRectTransform: {fileID: 6311301746976422982}
 --- !u!1001 &2746670107080780502
 PrefabInstance:
   m_ObjectHideFlags: 0

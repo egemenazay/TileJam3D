@@ -4,18 +4,13 @@ namespace _TileJam.Scripts.ViewScripts
     {
         public override void Start()
         {
-            GameManager.Instance.OnLevelFail += OnLevelFail;
+            GameManager.Instance.OnLevelFail += OnOpen;
         }
 
-        protected override void OnDestroy()
+        protected void OnDestroy()
         {
-            GameManager.Instance.OnLevelFail += OnLevelFail;
+            GameManager.Instance.OnLevelFail -= OnOpen;
         }
 
-        private void OnLevelFail()
-        {
-            PlayTextAnimation();
-            PlayButtonAnimation();
-        }
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1226095198702484559}
   - component: {fileID: 4212489108467171901}
   m_Layer: 5
-  m_Name: Star
+  m_Name: Star 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -193,8 +193,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6efc4d531d3b92b4faa47400ecc97712, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 923385746471813332}
   textRectTransform: {fileID: 8903775886045303885}
   buttonRectTransform: {fileID: 3789884789104216527}
+  starOneRectTransform: {fileID: 6937604737682120622}
+  starTwoRectTransform: {fileID: 4602766311999672268}
+  starThreeRectTransform: {fileID: 8909294759892737938}
 --- !u!1 &2869316418218920145
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,7 +211,7 @@ GameObject:
   - component: {fileID: 35800977749957414}
   - component: {fileID: 2829373797892988421}
   m_Layer: 5
-  m_Name: Star (1)
+  m_Name: Star 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -358,7 +362,7 @@ GameObject:
   - component: {fileID: 1837241409978161516}
   - component: {fileID: 8788855012593094087}
   m_Layer: 5
-  m_Name: Star (2)
+  m_Name: Star 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -838,7 +842,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4026471032716099333}
   m_Layer: 5
-  m_Name: Starts
+  m_Name: Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -856,8 +860,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6937604737682120622}
   - {fileID: 4602766311999672268}
+  - {fileID: 6937604737682120622}
   - {fileID: 8909294759892737938}
   m_Father: {fileID: 3107331283195415596}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
