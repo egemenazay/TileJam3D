@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3363116029017752713}
   - component: {fileID: 5086385944460665445}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Banner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -865,7 +865,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 1685776566978626791}
-  textRectTransform: {fileID: 43020740163374864}
+  bannerRectTransform: {fileID: 43020740163374864}
   buttonRectTransform: {fileID: 7111240322494347147}
   starOneRectTransform: {fileID: 999931563007387673}
   starTwoRectTransform: {fileID: 6185839177715801747}

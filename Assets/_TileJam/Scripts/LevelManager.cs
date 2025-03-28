@@ -8,15 +8,10 @@ public class LevelManager : MonoBehaviour
     [Header("Info")]
     [SerializeField] private int currentLevelIndex;   //level index value equals scene index 
     [SerializeField] private int totalScenes;  //"0" is loading scene, other values are same with level
-
-    public int CurrentLevelIndex
-    {
-        get { return currentLevelIndex; }
-    }
-
-    private Scene scene;
-    public static LevelManager Instance;
     
+    private Scene scene;
+    
+    public static LevelManager Instance;
     private void Awake()
     {
         if (Instance != null)

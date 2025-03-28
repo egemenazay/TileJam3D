@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Serialization;
 
 namespace _TileJam.Scripts.ViewScripts
 {
@@ -11,7 +12,7 @@ namespace _TileJam.Scripts.ViewScripts
         //animations play when event is fired up
         //there is gonna be a method on childs of these baseview where they are gonna subscribe to levelcomplete/fail events
         [SerializeField] private Canvas canvas;
-        [SerializeField] private RectTransform textRectTransform;
+        [SerializeField] private RectTransform bannerRectTransform;
         [SerializeField] private RectTransform buttonRectTransform;
         [SerializeField] private RectTransform starOneRectTransform;
         [SerializeField] private RectTransform starTwoRectTransform;
@@ -20,17 +21,17 @@ namespace _TileJam.Scripts.ViewScripts
         {
         }
 
-        protected void OnOpen()
+        protected virtual void OnOpen()
         {
             Refresh();
             PlayButtonAnimation();
-            PlayTextAnimation();
+            PlayBannerAnimation();
             PlayStarAnimation();
         }
 
         private void Refresh()
         {
-            textRectTransform.localScale = new Vector3(0f,2f,1f);
+            bannerRectTransform.localScale = new Vector3(0f,2f,1f);
             buttonRectTransform.localScale = new Vector3(0f,0f,1f);
             //StarScale
             starOneRectTransform.localScale = new Vector3(0f,0f,1f);
@@ -42,9 +43,9 @@ namespace _TileJam.Scripts.ViewScripts
             starThreeRectTransform.anchoredPosition = new Vector2(0f, -200f);
         }
 
-        private void PlayTextAnimation()
+        private void PlayBannerAnimation()
         {
-            textRectTransform.DOScaleX(2f, 1f);
+            bannerRectTransform.DOScaleX(2f, 1f);
         }
 
         private void PlayButtonAnimation()

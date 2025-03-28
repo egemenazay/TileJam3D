@@ -1,93 +1,107 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public enum GameState
+namespace _TileJam.Scripts
 {
-    Gameplay,
-    LevelComplete,
-    LevelFail,
-    UI
-}
-
-public enum LevelFailType
-{
-    TimeOut,
-    OutOfArea,
-    DeadEnd,
-    DebugType
-}
-public class GameManager : MonoBehaviour
-{
-    public static GameManager Instance;
-    
-    public event Action OnLevelComplete;
-    public event Action OnLevelFail;
-    public event Action OnLevelRestart;
-    
-    [Header("Info - Do not change")]
-    [SerializeField] private GameState currentGameState;
-    [SerializeField] private GameState previousGameState;
-    public GameState CurrentGameState => currentGameState;
-    public GameState PreviousGameState => previousGameState;
-    
-    private LevelFailType currentLevelFailType;
-    
-    private void Awake()
+    public enum GameState
     {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-        }
+        Gameplay,
+        LevelComplete,
+        LevelFail,
+        UI
     }
 
-    private void Start()
+    public enum LevelFailType
     {
-        currentGameState = GameState.Gameplay;
+        TimeOut,
+        OutOfArea,
+        DeadEnd,
+        DebugType
     }
+    public class GameManager : MonoBehaviour
+    {
+        public static GameManager Instance;
+    
+        public event Action OnLevelComplete;
+        public event Action OnLevelFail;
+        public event Action OnLevelRestart;
+    
+        [Header("Info - Do not change")]
+        [SerializeField] private GameState currentGameState;
+        [SerializeField] private GameState previousGameState;
+        public GameState CurrentGameState => currentGameState;
+        public GameState PreviousGameState => previousGameState;
+    
+        public LevelFailType currentLevelFailType;
+    
+        private void Awake()
+        {
+            if (Instance != null)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                Instance = this;
+            }
+        }
+
+        private void Start()
+        {
+            currentGameState = GameState.Gameplay;
+        }
 
 #if  UNITY_EDITOR
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.C))
+        private void Update()
         {
-            if (currentGameState == GameState.Gameplay)
+            if (Input.GetKeyDown(KeyCode.C))
             {
-                OnLevelComplete?.Invoke();
-                ChangeGameState(GameState.LevelComplete);
+                if (currentGameState == GameState.Gameplay)
+                {
+                    ChangeGameState(GameState.LevelComplete);
+                    OnLevelComplete?.Invoke();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                if (currentGameState == GameState.Gameplay)
+                {
+                    ChangeGameState(GameState.LevelFail);
+                    SetLevelFail(LevelFailType.DebugType);
+                    OnLevelFail?.Invoke();
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                if (currentGameState == GameState.Gameplay)
+                {
+                    SetLevelFail(LevelFailType.TimeOut);
+                    ChangeGameState(GameState.LevelFail);
+                    OnLevelFail?.Invoke();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                OnLevelRestart?.Invoke();
+                Debug.Log("Level Restarted");
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            if (currentGameState == GameState.Gameplay)
-            {
-                OnLevelFail?.Invoke();
-                ChangeGameState(GameState.LevelFail);
-                SetLevelFail(LevelFailType.DebugType);
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            OnLevelRestart?.Invoke();
-            Debug.Log("Level Restarted");
-        }
-    }
 
 #endif
     
-    private void SetLevelFail(LevelFailType levelFailType)
-    {
-        currentLevelFailType = levelFailType;
-    }
-    public void ChangeGameState(GameState newGameState)
-    {
-        previousGameState = currentGameState;
-        currentGameState = newGameState;
+        private void SetLevelFail(LevelFailType levelFailType)
+        {
+            currentLevelFailType = levelFailType;
+        }
+        public void ChangeGameState(GameState newGameState)
+        {
+            previousGameState = currentGameState;
+            currentGameState = newGameState;
+        }
+        
+        
     }
 }
