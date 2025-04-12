@@ -1,4 +1,4 @@
-﻿namespace _TileJam.Scripts
+﻿namespace _TileJam.Scripts.KeyScripts
 {
     public static class PlayerPrefKeys
     {

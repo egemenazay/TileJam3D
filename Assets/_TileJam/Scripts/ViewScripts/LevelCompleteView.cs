@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using DG.Tweening;
+﻿using _TileJam.Scripts.ManagerScripts;
+
 
 namespace _TileJam.Scripts.ViewScripts
 {

@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace _TileJam.Scripts
+namespace _TileJam.Scripts.ManagerScripts
 {
     public enum GameState
     {
@@ -11,7 +10,6 @@ namespace _TileJam.Scripts
         LevelFail,
         UI
     }
-
     public enum LevelFailType
     {
         TimeOut,
