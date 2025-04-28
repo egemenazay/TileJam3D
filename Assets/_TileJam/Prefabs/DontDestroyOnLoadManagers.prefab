@@ -390,12 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6bcc679e4ec13748b039fad12e0ff88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 5483528869914066531}
-  bannerRectTransform: {fileID: 0}
-  buttonRectTransform: {fileID: 0}
-  starOneRectTransform: {fileID: 0}
-  starTwoRectTransform: {fileID: 0}
-  starThreeRectTransform: {fileID: 0}
+  viewCanvas: {fileID: 5483528869914066531}
   currentLevelText: {fileID: 8321434928028875122}
   fakeLevelIndex: 1
 --- !u!1001 &3009120752762318721
@@ -613,6 +608,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelCompleteView
       objectReference: {fileID: 0}
+    - target: {fileID: 8521621384737517446, guid: 1b4a89693e7df644bbf911dfd54e3008, type: 3}
+      propertyPath: viewCanvas
+      value: 
+      objectReference: {fileID: 5958610440889041984}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -644,6 +643,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelFailView
       objectReference: {fileID: 0}
+    - target: {fileID: 1828393563810514941, guid: 8f11ceeef7f68ad499f1f018c00c136a, type: 3}
+      propertyPath: viewCanvas
+      value: 
+      objectReference: {fileID: 8873287069632747674}
     - target: {fileID: 3107331283195415596, guid: 8f11ceeef7f68ad499f1f018c00c136a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
