@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6efc4d531d3b92b4faa47400ecc97712, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewCanvas: {fileID: 0}
+  viewCanvas: {fileID: 923385746471813332}
   bannerRectTransform: {fileID: 8903775886045303885}
   buttonRectTransform: {fileID: 3789884789104216527}
   starOneRectTransform: {fileID: 6937604737682120622}

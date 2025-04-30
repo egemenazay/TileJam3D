@@ -55,45 +55,48 @@ namespace _TileJam.Scripts.ManagerScripts
         {
             if (Input.GetKeyDown(KeyCode.C))
             {
-                if (currentGameState == GameState.Gameplay)
-                {
-                    ChangeGameState(GameState.LevelComplete);
-                    OnLevelComplete?.Invoke();
-                }
+                CompleteLevel();
             }
 
             if (Input.GetKeyDown(KeyCode.F))
             {
-                if (currentGameState == GameState.Gameplay)
-                {
-                    ChangeGameState(GameState.LevelFail);
-                    SetLevelFail(LevelFailType.DebugType);
-                    OnLevelFail?.Invoke();
-                }
+                FailLevel(LevelFailType.DebugType);
             }
             if (Input.GetKeyDown(KeyCode.T))
             {
-                if (currentGameState == GameState.Gameplay)
-                {
-                    SetLevelFail(LevelFailType.TimeOut);
-                    ChangeGameState(GameState.LevelFail);
-                    OnLevelFail?.Invoke();
-                }
+                FailLevel(LevelFailType.TimeOut);
             }
 
             if (Input.GetKeyDown(KeyCode.R))
             {
-                OnLevelRestart?.Invoke();
-                Debug.Log("Level Restarted");
+               RestartLevel();
             }
         }
 
 #endif
-    
-        private void SetLevelFail(LevelFailType levelFailType)
+        public void CompleteLevel()
         {
-            currentLevelFailType = levelFailType;
+            if (currentGameState != GameState.Gameplay) return;
+            
+            ChangeGameState(GameState.LevelComplete);
+            OnLevelComplete?.Invoke();
         }
+
+        public void FailLevel(LevelFailType levelFailType)
+        {
+            if (currentGameState != GameState.Gameplay) return;
+            
+            ChangeGameState(GameState.LevelFail);
+            currentLevelFailType = levelFailType;
+            OnLevelFail?.Invoke();
+            
+        }
+
+        public void RestartLevel()
+        {
+            OnLevelRestart?.Invoke();
+        }
+
         public void ChangeGameState(GameState newGameState)
         {
             previousGameState = currentGameState;

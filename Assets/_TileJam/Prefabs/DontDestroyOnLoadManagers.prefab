@@ -604,6 +604,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4969803666184819182, guid: 1b4a89693e7df644bbf911dfd54e3008, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6101969663321060371}
+    - target: {fileID: 4969803666184819182, guid: 1b4a89693e7df644bbf911dfd54e3008, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadCurrentScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 4969803666184819182, guid: 1b4a89693e7df644bbf911dfd54e3008, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: _TileJam.Scripts.ManagerScripts.LevelManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 7617654805359510860, guid: 1b4a89693e7df644bbf911dfd54e3008, type: 3}
       propertyPath: m_Name
       value: LevelCompleteView
