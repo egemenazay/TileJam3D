@@ -11,7 +11,7 @@ namespace _TileJam.Scripts.ViewScripts
     {
         [SerializeField] private TMP_Text currentLevelText;
         [Header("Info")]
-        [SerializeField] private int fakeLevelIndex = 1; //Level index in UI
+        [SerializeField] private int fakeLevelIndex; //Level index in UI
 
         private void Awake()
         {
@@ -23,7 +23,7 @@ namespace _TileJam.Scripts.ViewScripts
             fakeLevelIndex = PlayerPrefs.GetInt(PlayerPrefKeys.FakeLevelIndex);
             if (PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex) == 0) // When game launches first time there is no saved index,
             {
-                fakeLevelIndex++;
+                fakeLevelIndex = 1;
                 SaveFakeLevelIndex();
             }
             currentLevelText.text = "Level: " + fakeLevelIndex;
@@ -37,6 +37,7 @@ namespace _TileJam.Scripts.ViewScripts
         private void OnLevelComplete()
         {
             fakeLevelIndex++;
+            SaveFakeLevelIndex();
         }
         
         private void SaveFakeLevelIndex()
