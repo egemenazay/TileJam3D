@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using _TileJam.Scripts.KeyScripts;
-using TMPro;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using _TileJam.Scripts.KeyScripts;
 
 
 namespace _TileJam.Scripts.ManagerScripts
@@ -17,10 +17,14 @@ namespace _TileJam.Scripts.ManagerScripts
     public class UIManager : MonoBehaviour
     {
         [Header("References")]
+        [Header("--Views--")]
         [SerializeField] private Canvas levelCompleteView;
         [SerializeField] private Canvas levelFailView;
         [SerializeField] private Canvas gameplayView;
         [SerializeField] private Canvas loadingView;
+        [Header("Info")]
+        [SerializeField] private int currentLevelIndex;
+        private Scene scene;
     
         private Dictionary<ViewType, Canvas> viewList = new Dictionary<ViewType, Canvas>();
 
@@ -41,12 +45,24 @@ namespace _TileJam.Scripts.ManagerScripts
     
         private void Start()
         {
+            scene = SceneManager.GetActiveScene();
+            currentLevelIndex = scene.buildIndex;
+            if (currentLevelIndex == 0)   //This "if" used when game starts normally from loading scene
+            {
+                if (PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex) == 0)  //when game first launched if 0 level saved this "if" starts game at level1
+                {
+                    currentLevelIndex++;
+                    PlayerPrefs.SetInt(PlayerPrefKeys.LevelIndex ,currentLevelIndex);
+                }
+                currentLevelIndex = PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex);
+                StartCoroutine(LoadSceneCoroutine(currentLevelIndex));   
+            }
             GameManager.Instance.OnLevelComplete += () => OnLoadView(ViewType.LevelComplete);
             GameManager.Instance.OnLevelFail += () => OnLoadView(ViewType.LevelFail);
         }
     
     
-        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        private void OnSceneLoaded(Scene sceneRef, LoadSceneMode mode)
         {
             viewList[ViewType.LevelComplete].enabled = false;
             viewList[ViewType.Loading].enabled = false;
@@ -76,6 +92,20 @@ namespace _TileJam.Scripts.ManagerScripts
             GameManager.Instance.OnLevelComplete -= () => OnLoadView(ViewType.LevelComplete);
             // ReSharper disable once EventUnsubscriptionViaAnonymousDelegate
             GameManager.Instance.OnLevelFail -= () => OnLoadView(ViewType.LevelFail);
+        }
+        
+        private IEnumerator LoadSceneCoroutine(int sceneBuildIndex)
+        {
+            if (scene.buildIndex != 0)
+            {
+                SceneManager.LoadScene(SceneKeys.LoadScene);
+            }
+            yield return new WaitForSeconds(1f);
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneBuildIndex);
+            while (!asyncLoad.isDone)
+            {
+                yield return null;
+            }
         }
         
         private void AddViewsToList()

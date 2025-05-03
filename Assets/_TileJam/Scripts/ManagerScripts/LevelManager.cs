@@ -27,19 +27,7 @@ namespace _TileJam.Scripts.ManagerScripts
         }
         private void Start()
         {
-            scene = SceneManager.GetActiveScene();
-            currentLevelIndex = scene.buildIndex;
             totalScenes = SceneManager.sceneCountInBuildSettings;
-            if (currentLevelIndex == 0)   //This "if" used when game starts normally from loading scene
-            {
-                if (PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex) == 0)  //when game first launched if 0 level saved this "if" starts game at level1
-                {
-                    currentLevelIndex++;
-                    PlayerPrefs.SetInt(PlayerPrefKeys.LevelIndex ,currentLevelIndex);
-                }
-                currentLevelIndex = PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex);
-                StartCoroutine(LoadSceneCoroutine(currentLevelIndex));   
-            }
             GameManager.Instance.OnLevelComplete += OnLevelComplete;
             GameManager.Instance.OnLevelRestart += OnLevelRestart;
         }
@@ -63,7 +51,6 @@ namespace _TileJam.Scripts.ManagerScripts
             PlayerPrefs.SetInt(PlayerPrefKeys.LevelIndex,currentLevelIndex);
         }
 
-
         private void OnLevelRestart()
         {
             if (GameManager.Instance.CurrentGameState == GameState.LevelComplete)
@@ -85,20 +72,6 @@ namespace _TileJam.Scripts.ManagerScripts
             {
                 GameManager.Instance.ChangeGameState(GameState.Gameplay);
                 SceneManager.LoadScene(currentLevelIndex, LoadSceneMode.Single);
-            }
-        }
-    
-        private IEnumerator LoadSceneCoroutine(int sceneBuildIndex)
-        {
-            if (scene.buildIndex != 0)
-            {
-                SceneManager.LoadScene("LoadScene");
-            }
-            yield return new WaitForSeconds(1f);
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneBuildIndex);
-            while (!asyncLoad.isDone)
-            {
-                yield return null;
             }
         }
     }

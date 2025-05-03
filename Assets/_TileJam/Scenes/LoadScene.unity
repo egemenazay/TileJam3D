@@ -214,6 +214,18 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5483528869914066531, guid: f6381a1fbaba08746a3973aa0e91d195, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958610440889041984, guid: f6381a1fbaba08746a3973aa0e91d195, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7563536312087981887, guid: f6381a1fbaba08746a3973aa0e91d195, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9209406853436821240, guid: f6381a1fbaba08746a3973aa0e91d195, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
