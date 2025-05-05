@@ -94,7 +94,7 @@ namespace _TileJam.Scripts.ManagerScripts
             GameManager.Instance.OnLevelFail -= () => OnLoadView(ViewType.LevelFail);
         }
         
-        private IEnumerator LoadSceneCoroutine(int sceneBuildIndex)
+        private IEnumerator LoadSceneCoroutine(int sceneBuildIndex) //this goes to loadingView script
         {
             if (scene.buildIndex != 0)
             {
