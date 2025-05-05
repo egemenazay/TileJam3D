@@ -39,7 +39,7 @@ namespace _TileJam.Scripts.ViewScripts
             fakeLevelIndex++;
             SaveFakeLevelIndex();
         }
-        public void OpenSettings()
+        public void OpenSettingsButton()
         {
             UIManager.Instance.SetSettingView();
             GameManager.Instance.ChangeGameState(GameState.UI);

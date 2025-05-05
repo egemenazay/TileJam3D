@@ -66,11 +66,7 @@ namespace _TileJam.Scripts.ManagerScripts
     
         private void OnSceneLoaded(Scene sceneRef, LoadSceneMode mode)
         {
-            viewList[ViewType.LevelComplete].enabled = false;
-            viewList[ViewType.Loading].enabled = false;
-            viewList[ViewType.LevelFail].enabled = false;
-            viewList[ViewType.Setting].enabled = false;
-            viewList[ViewType.Gameplay].enabled = true;
+            SetGameplayView();
             Debug.Log("Scene Loaded");
         }
 
@@ -93,7 +89,15 @@ namespace _TileJam.Scripts.ManagerScripts
             if (GameManager.Instance.CurrentGameState != GameState.Gameplay) return;
             viewList[ViewType.Setting].enabled = true;
         }
-        
+
+        public void SetGameplayView()
+        {
+            viewList[ViewType.LevelComplete].enabled = false;
+            viewList[ViewType.Loading].enabled = false;
+            viewList[ViewType.LevelFail].enabled = false;
+            viewList[ViewType.Setting].enabled = false;
+            viewList[ViewType.Gameplay].enabled = true;
+        }
         private void OnDestroy()
         {
             SceneManager.sceneLoaded -= OnSceneLoaded;
