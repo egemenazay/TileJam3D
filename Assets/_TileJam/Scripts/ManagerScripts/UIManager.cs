@@ -12,7 +12,8 @@ namespace _TileJam.Scripts.ManagerScripts
         LevelComplete,
         LevelFail,
         Gameplay,
-        Loading
+        Loading,
+        Setting
     }
     public class UIManager : MonoBehaviour
     {
@@ -22,6 +23,7 @@ namespace _TileJam.Scripts.ManagerScripts
         [SerializeField] private Canvas levelFailView;
         [SerializeField] private Canvas gameplayView;
         [SerializeField] private Canvas loadingView;
+        [SerializeField] private Canvas settingView;
         [Header("Info")]
         [SerializeField] private int currentLevelIndex;
         private Scene scene;
@@ -67,6 +69,7 @@ namespace _TileJam.Scripts.ManagerScripts
             viewList[ViewType.LevelComplete].enabled = false;
             viewList[ViewType.Loading].enabled = false;
             viewList[ViewType.LevelFail].enabled = false;
+            viewList[ViewType.Setting].enabled = false;
             viewList[ViewType.Gameplay].enabled = true;
             Debug.Log("Scene Loaded");
         }
@@ -84,7 +87,13 @@ namespace _TileJam.Scripts.ManagerScripts
                     break;
             }
         }
-    
+        
+        public void SetSettingView()
+        {
+            if (GameManager.Instance.CurrentGameState != GameState.Gameplay) return;
+            viewList[ViewType.Setting].enabled = true;
+        }
+        
         private void OnDestroy()
         {
             SceneManager.sceneLoaded -= OnSceneLoaded;
@@ -114,6 +123,7 @@ namespace _TileJam.Scripts.ManagerScripts
             viewList.Add(ViewType.LevelComplete, levelCompleteView);
             viewList.Add(ViewType.LevelFail, levelFailView);
             viewList.Add(ViewType.Loading, loadingView);
+            viewList.Add(ViewType.Setting, settingView);
         }
     }
 }
