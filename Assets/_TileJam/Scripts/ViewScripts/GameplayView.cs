@@ -1,4 +1,3 @@
-using System;
 using _TileJam.Scripts.KeyScripts;
 using _TileJam.Scripts.ManagerScripts;
 using TMPro;
@@ -10,6 +9,8 @@ namespace _TileJam.Scripts.ViewScripts
     public class GameplayView : BaseView
     {
         [SerializeField] private TMP_Text currentLevelText;
+        [SerializeField] private TMP_Text timerText;
+        private float currentTime;
         [Header("Info")]
         [SerializeField] private int fakeLevelIndex; //Level index in UI
 
@@ -17,7 +18,6 @@ namespace _TileJam.Scripts.ViewScripts
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
-
         public override void Start()
         {
             fakeLevelIndex = PlayerPrefs.GetInt(PlayerPrefKeys.FakeLevelIndex);
@@ -30,6 +30,12 @@ namespace _TileJam.Scripts.ViewScripts
             GameManager.Instance.OnLevelComplete += OnLevelComplete;
             GameManager.Instance.OnLevelFail += OnLevelFail;
         }
+        private void Update()
+        {
+            currentTime = TimeManager.Instance.currentTime;
+            UpdateTimerUI();
+        }
+
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             currentLevelText.text = "Level: " + fakeLevelIndex;
@@ -56,6 +62,15 @@ namespace _TileJam.Scripts.ViewScripts
         private void SaveFakeLevelIndex()
         {
             PlayerPrefs.SetInt(PlayerPrefKeys.FakeLevelIndex,fakeLevelIndex);
+        }
+        private void UpdateTimerUI()
+        {
+            if (timerText != null)
+            {
+                int minutes = Mathf.FloorToInt(currentTime / 60f);
+                int seconds = Mathf.FloorToInt(currentTime % 60f);
+                timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+            }
         }
         private void OnDestroy()
         {

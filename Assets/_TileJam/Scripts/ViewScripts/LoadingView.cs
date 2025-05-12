@@ -1,4 +1,5 @@
 using _TileJam.Scripts.ManagerScripts;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -30,9 +31,10 @@ namespace _TileJam.Scripts.ViewScripts
             }
         }
 
-        private void OnLoadComplete()
+        private async void OnLoadComplete()
         {
             LevelManager.Instance.LoadCurrentScene();
+            await UniTask.WaitForSeconds(0.1f);
             OnClose();
         }
     }
