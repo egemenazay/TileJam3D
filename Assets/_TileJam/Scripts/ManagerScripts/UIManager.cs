@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using _TileJam.Scripts.KeyScripts;
+using _TileJam.Scripts.ViewScripts;
 
 
 namespace _TileJam.Scripts.ManagerScripts
@@ -19,16 +20,13 @@ namespace _TileJam.Scripts.ManagerScripts
     {
         [Header("References")]
         [Header("--Views--")]
-        [SerializeField] private Canvas levelCompleteView;
-        [SerializeField] private Canvas levelFailView;
-        [SerializeField] private Canvas gameplayView;
-        [SerializeField] private Canvas loadingView;
-        [SerializeField] private Canvas settingView;
-        [Header("Info")]
-        [SerializeField] private int currentLevelIndex;
-        private Scene scene;
-    
-        private Dictionary<ViewType, Canvas> viewList = new Dictionary<ViewType, Canvas>();
+        [SerializeField] private LevelCompleteView levelCompleteView;
+        [SerializeField] private LevelFailView levelFailView;
+        [SerializeField] private GameplayView gameplayView;
+        [SerializeField] private LoadingView loadingView;
+        [SerializeField] private SettingView settingView;
+        private Scene currentScene; 
+        private Dictionary<ViewType, BaseView> viewList = new Dictionary<ViewType, BaseView>();
 
         public static UIManager Instance;
         private void Awake()
@@ -41,86 +39,21 @@ namespace _TileJam.Scripts.ManagerScripts
             {
                 Instance = this;
             }
-            SceneManager.sceneLoaded += OnSceneLoaded;
             AddViewsToList();
         }
     
         private void Start()
         {
-            scene = SceneManager.GetActiveScene();
-            currentLevelIndex = scene.buildIndex;
-            if (currentLevelIndex == 0)   //This "if" used when game starts normally from loading scene
+            currentScene = SceneManager.GetActiveScene();
+            if (currentScene.name == SceneKeys.LoadScene)   //This "if" used when game starts normally from loading scene
             {
-                if (PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex) == 0)  //when game first launched if 0 level saved this "if" starts game at level1
-                {
-                    currentLevelIndex++;
-                    PlayerPrefs.SetInt(PlayerPrefKeys.LevelIndex ,currentLevelIndex);
-                }
-                currentLevelIndex = PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex);
-                StartCoroutine(LoadSceneCoroutine(currentLevelIndex));   
-            }
-            GameManager.Instance.OnLevelComplete += () => OnLoadView(ViewType.LevelComplete);
-            GameManager.Instance.OnLevelFail += () => OnLoadView(ViewType.LevelFail);
-        }
-    
-    
-        private void OnSceneLoaded(Scene sceneRef, LoadSceneMode mode)
-        {
-            SetGameplayView();
-            Debug.Log("Scene Loaded");
-        }
-
-        private void OnLoadView(ViewType type)
-        {
-            viewList[ViewType.Gameplay].enabled = false;
-            switch (type)
-            {
-                case ViewType.LevelComplete:
-                    viewList[ViewType.LevelComplete].enabled = true;
-                    break;
-                case ViewType.LevelFail:
-                    viewList[ViewType.LevelFail].enabled = true;
-                    break;
+                OnLoadView(ViewType.Loading,2);
             }
         }
-        
-        public void SetSettingView()
+        public void OnLoadView(ViewType type, int sortOrder) //add sort order
         {
-            if (GameManager.Instance.CurrentGameState != GameState.Gameplay) return;
-            viewList[ViewType.Setting].enabled = true;
+            viewList[type].OnOpen(sortOrder);
         }
-
-        public void SetGameplayView()
-        {
-            viewList[ViewType.LevelComplete].enabled = false;
-            viewList[ViewType.Loading].enabled = false;
-            viewList[ViewType.LevelFail].enabled = false;
-            viewList[ViewType.Setting].enabled = false;
-            viewList[ViewType.Gameplay].enabled = true;
-        }
-        private void OnDestroy()
-        {
-            SceneManager.sceneLoaded -= OnSceneLoaded;
-            // ReSharper disable once EventUnsubscriptionViaAnonymousDelegate
-            GameManager.Instance.OnLevelComplete -= () => OnLoadView(ViewType.LevelComplete);
-            // ReSharper disable once EventUnsubscriptionViaAnonymousDelegate
-            GameManager.Instance.OnLevelFail -= () => OnLoadView(ViewType.LevelFail);
-        }
-        
-        private IEnumerator LoadSceneCoroutine(int sceneBuildIndex) //this goes to loadingView script
-        {
-            if (scene.buildIndex != 0)
-            {
-                SceneManager.LoadScene(SceneKeys.LoadScene);
-            }
-            yield return new WaitForSeconds(1f);
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneBuildIndex);
-            while (!asyncLoad.isDone)
-            {
-                yield return null;
-            }
-        }
-        
         private void AddViewsToList()
         {
             viewList.Add(ViewType.Gameplay, gameplayView);

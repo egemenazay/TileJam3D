@@ -1,7 +1,6 @@
 using System;
 using _TileJam.Scripts.KeyScripts;
 using _TileJam.Scripts.ManagerScripts;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,50 +8,72 @@ namespace _TileJam.Scripts.ViewScripts
 {
     public class SettingView : BaseView
     {
+        [Header("References")]
         [SerializeField] private Toggle soundToggle;
+        [SerializeField] private Button closeButton;
+
+        private bool isToggleOn;
         public override void Start()
         {
             base.Start();
             //GONNA ADD SOUNDMANAGER
+            closeButton.onClick.AddListener(CloseSettingsButton);
             if (PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex) == 0)
             {
+                Debug.Log(PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex));
+                isToggleOn = false;
                 PlayerPrefs.SetInt(PlayerPrefKeys.SoundToggle, 1);
             }
             
             if (PlayerPrefs.GetInt(PlayerPrefKeys.SoundToggle)==0)
             {
-                AudioListener.volume = 0f;
-                soundToggle.isOn = true;
+                isToggleOn = false;
             }
             else
             {
-                AudioListener.volume = 1f;
-                soundToggle.isOn = false;
+                isToggleOn = true;
             }
+            soundToggle.isOn = !isToggleOn;
+            soundToggle.onValueChanged.AddListener(ToggleSound);
+        }
+        private void OnDestroy()
+        {
+            closeButton.onClick.RemoveAllListeners();
+            soundToggle.onValueChanged.RemoveAllListeners();
         }
 
         public void CloseSettingsButton()
         {
-            UIManager.Instance.SetGameplayView();
             GameManager.Instance.ChangeGameState(GameState.Gameplay);
+            OnClose();
         }
-        public void ToggleSound()
+        private void ToggleSound(bool isOn)
         {
             if (PlayerPrefs.GetInt(PlayerPrefKeys.SoundToggle) == 1)
             {
-                AudioListener.volume =  0f;
-                PlayerPrefs.SetInt(PlayerPrefKeys.SoundToggle, 0);
+                CloseSound();
             }
             else
             {
-                AudioListener.volume =  1f;
-                PlayerPrefs.SetInt(PlayerPrefKeys.SoundToggle, 1);
+                OpenSound();
             }
+
+            isToggleOn = !isOn;
         }
 
-        private void Update()
+
+        private void CloseSound()
         {
-            Debug.Log(PlayerPrefs.GetInt(PlayerPrefKeys.SoundToggle));
+            AudioListener.volume = 0f;
+            isToggleOn = true;
+            PlayerPrefs.SetInt(PlayerPrefKeys.SoundToggle, 0);
+        }
+
+        private void OpenSound()
+        {
+            AudioListener.volume = 1f;
+            isToggleOn = false;
+            PlayerPrefs.SetInt(PlayerPrefKeys.SoundToggle, 1);
         }
     }
 }

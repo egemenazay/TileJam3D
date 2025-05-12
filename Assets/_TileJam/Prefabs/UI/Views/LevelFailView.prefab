@@ -195,8 +195,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewCanvas: {fileID: 923385746471813332}
+  restartButton: {fileID: 806290914621620928}
   bannerRectTransform: {fileID: 8903775886045303885}
-  buttonRectTransform: {fileID: 0}
+  buttonRectTransform: {fileID: 5872733587848423313}
   starOneRectTransform: {fileID: 6937604737682120622}
   starTwoRectTransform: {fileID: 4602766311999672268}
   starThreeRectTransform: {fileID: 8909294759892737938}
@@ -850,6 +851,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2276aee71a99614a9ea041054ecda0c, type: 3}
+--- !u!114 &806290914621620928 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2353034527865805346, guid: d2276aee71a99614a9ea041054ecda0c, type: 3}
+  m_PrefabInstance: {fileID: 3141029014627293410}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &5872733587848423313 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8797510475001364339, guid: d2276aee71a99614a9ea041054ecda0c, type: 3}

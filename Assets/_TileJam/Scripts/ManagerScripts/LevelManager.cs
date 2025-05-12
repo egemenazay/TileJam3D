@@ -30,12 +30,20 @@ namespace _TileJam.Scripts.ManagerScripts
             totalScenes = SceneManager.sceneCountInBuildSettings;
             GameManager.Instance.OnLevelComplete += OnLevelComplete;
             GameManager.Instance.OnLevelRestart += OnLevelRestart;
+            GameManager.Instance.OnLevelFail += OnLevelFail;
+            currentLevelIndex = PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex);
+            if (currentLevelIndex == 0)
+            {
+                currentLevelIndex++;
+                PlayerPrefs.SetInt(PlayerPrefKeys.LevelIndex, currentLevelIndex);
+            }
         }
 
         private void OnDestroy()
         {
             GameManager.Instance.OnLevelComplete -= OnLevelComplete;
             GameManager.Instance.OnLevelRestart -= OnLevelRestart;
+            GameManager.Instance.OnLevelFail -= OnLevelFail;
         }
 
         private void OnLevelComplete()
@@ -51,22 +59,21 @@ namespace _TileJam.Scripts.ManagerScripts
             PlayerPrefs.SetInt(PlayerPrefKeys.LevelIndex,currentLevelIndex);
         }
 
+        private void OnLevelFail()
+        {
+            PlayerPrefs.SetInt(PlayerPrefKeys.LevelIndex, currentLevelIndex);
+        }
+
         private void OnLevelRestart()
         {
             if (GameManager.Instance.CurrentGameState == GameState.LevelComplete)
             {
                 currentLevelIndex--;
             }
-        
             LoadCurrentScene();  //for now restart is made by a function automatically, this event launched by a button in future
         }
-
-        private void Update()
-        {
-            Debug.Log(GameManager.Instance.CurrentGameState);
-        }
-
-        public void LoadCurrentScene()       //This functions used in buttons 
+        
+        public void LoadCurrentScene()       
         {
             if (currentLevelIndex < totalScenes)
             {

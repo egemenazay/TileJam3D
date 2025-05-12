@@ -3,11 +3,15 @@ using _TileJam.Scripts.ManagerScripts;
 using TMPro;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _TileJam.Scripts.ViewScripts
 {
     public class LevelFailView : BaseView
     {
+        [Header ("References")]
+        [SerializeField] private Button restartButton;
+        
         [SerializeField] private RectTransform bannerRectTransform;
         [SerializeField] private RectTransform buttonRectTransform;
         [SerializeField] private RectTransform starOneRectTransform;
@@ -19,27 +23,29 @@ namespace _TileJam.Scripts.ViewScripts
         private void Awake()
         {
             AddFailTypesToList();
+            
         }
-
+        
         public override void Start()
         {
-            base.OnOpen();
-            GameManager.Instance.OnLevelFail += OnOpen;
+            restartButton.onClick.AddListener(OnRestartButton);
         }
-
         protected void OnDestroy()
         {
-            GameManager.Instance.OnLevelFail -= OnOpen;
+            restartButton.onClick.RemoveAllListeners();
         }
-
-        protected override void OnOpen()
+        public override bool OnOpen(int sortOrder)
         {
-            base.OnOpen();
-            SetLevelFailType();
+            var baseReturnValue = base.OnOpen(sortOrder);
+            if (!baseReturnValue) return false;
+            
             Refresh();
             PlayButtonAnimation();
             PlayBannerAnimation();
             PlayStarAnimation();
+            SetLevelFailType();
+            
+            return true;
         }
         private void Refresh()
         {
@@ -74,7 +80,12 @@ namespace _TileJam.Scripts.ViewScripts
             starTwoRectTransform.DOAnchorPos(new Vector2(0f, 300f), 0.8f);
             starThreeRectTransform.DOAnchorPos(new Vector2(200f, 250f), 1f);
         }
-        
+
+        private void OnRestartButton()
+        {
+            OnClose();
+            LevelManager.Instance.LoadCurrentScene();
+        }
         private void SetLevelFailType()
         {
             levelFailText.text = levelFailTypeList[GameManager.Instance.currentLevelFailType];

@@ -594,8 +594,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewCanvas: {fileID: 1685776566978626791}
+  continueButton: {fileID: 8343219620147044024}
   bannerRectTransform: {fileID: 43020740163374864}
-  buttonRectTransform: {fileID: 0}
+  buttonRectTransform: {fileID: 2988616982145760233}
   starOneRectTransform: {fileID: 999931563007387673}
   starTwoRectTransform: {fileID: 6185839177715801747}
   starThreeRectTransform: {fileID: 6311301746976422982}
@@ -803,3 +804,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8797510475001364339, guid: d2276aee71a99614a9ea041054ecda0c, type: 3}
   m_PrefabInstance: {fileID: 6011947499370349722}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8343219620147044024 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2353034527865805346, guid: d2276aee71a99614a9ea041054ecda0c, type: 3}
+  m_PrefabInstance: {fileID: 6011947499370349722}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -1,26 +1,39 @@
+using _TileJam.Scripts.ManagerScripts;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using UnityEngine.Serialization;
-
 namespace _TileJam.Scripts.ViewScripts
 {
     public class LoadingView : BaseView
     {
         [SerializeField] private Image sliderBarImage;
+        
+        [Header("Parameters")] //add duration and ease here
+        [SerializeField] private float duration;
 
-        public override void Start()
+        public override bool OnOpen(int sortOrder)
         {
-            base.Start();
-            MoveSlider();
+            var baseReturnValue = base.OnOpen(sortOrder);
+            if (!baseReturnValue) return false;
+            LoadLevel();
+            return true;
         }
-        private void MoveSlider()
+
+        private void LoadLevel()
         {
             if (viewCanvas.enabled)
             {
                 sliderBarImage.fillAmount = 0;
-                sliderBarImage.DOFillAmount(1f, 1f);
+                sliderBarImage.DOFillAmount(1f, duration)
+                    .SetEase(Ease.OutSine)
+                    .OnComplete(OnLoadComplete);
             }
+        }
+
+        private void OnLoadComplete()
+        {
+            LevelManager.Instance.LoadCurrentScene();
+            OnClose();
         }
     }
 }

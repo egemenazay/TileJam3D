@@ -119,6 +119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewCanvas: {fileID: 356274436252525016}
   sliderBarImage: {fileID: 5587304947031138402}
+  duration: 1
 --- !u!1 &2189291073096414369
 GameObject:
   m_ObjectHideFlags: 0

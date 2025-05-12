@@ -1,12 +1,16 @@
 ﻿using _TileJam.Scripts.ManagerScripts;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 namespace _TileJam.Scripts.ViewScripts
 {
     public class LevelCompleteView : BaseView
     {
+        [Header ("References")]
+        [SerializeField] private Button continueButton;
+        
         [SerializeField] private RectTransform bannerRectTransform;
         [SerializeField] private RectTransform buttonRectTransform;
         [SerializeField] private RectTransform starOneRectTransform;
@@ -14,20 +18,23 @@ namespace _TileJam.Scripts.ViewScripts
         [SerializeField] private RectTransform starThreeRectTransform;
         public override void Start()
         {
-            GameManager.Instance.OnLevelComplete += OnOpen; //open'a abone ol
+            continueButton.onClick.AddListener(OnContinueButton);
         }
-
         protected void OnDestroy()
         {
-            GameManager.Instance.OnLevelComplete -= OnOpen;
+            continueButton.onClick.RemoveAllListeners();
         }
-        protected override void OnOpen()
+        public override bool OnOpen(int sortOrder)
         {
-            base.OnOpen();
+            var baseReturnValue = base.OnOpen(sortOrder);
+            if (!baseReturnValue) return false;
+            
             Refresh();
             PlayButtonAnimation();
             PlayBannerAnimation();
             PlayStarAnimation();
+
+            return true;
         }
         private void Refresh()
         {
@@ -61,6 +68,11 @@ namespace _TileJam.Scripts.ViewScripts
             starOneRectTransform.DOAnchorPos(new Vector2(-200f, 250f), 0.5f);
             starTwoRectTransform.DOAnchorPos(new Vector2(0f, 300f), 0.8f);
             starThreeRectTransform.DOAnchorPos(new Vector2(200f, 250f), 1f);
+        }
+        private void OnContinueButton()
+        {
+            OnClose();
+            LevelManager.Instance.LoadCurrentScene();
         }
     }
 }
