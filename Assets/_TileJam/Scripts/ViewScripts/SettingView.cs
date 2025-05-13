@@ -8,37 +8,32 @@ namespace _TileJam.Scripts.ViewScripts
     public class SettingView : BaseView
     {
         [Header("References")]
-        [SerializeField] private Toggle soundToggle;
         [SerializeField] private Button closeButton;
-
-        private bool isToggleOn;
+        [SerializeField] private Button soundButton;
+        [SerializeField] private Image closedSprite;
         public override void Start()
         {
             base.Start();
-            //GONNA ADD SOUNDMANAGER
             closeButton.onClick.AddListener(CloseSettingsButton);
+            soundButton.onClick.AddListener(ChangeSoundButton);
             if (PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex) == 0)
             {
                 Debug.Log(PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex));
-                isToggleOn = false;
                 PlayerPrefs.SetInt(PlayerPrefKeys.SoundToggle, 1);
             }
-            
-            if (PlayerPrefs.GetInt(PlayerPrefKeys.SoundToggle)==0)
+
+            if (PlayerPrefs.GetInt(PlayerPrefKeys.SoundToggle) == 1)
             {
-                isToggleOn = false;
+                OpenSound();
             }
             else
             {
-                isToggleOn = true;
+                CloseSound();
             }
-            soundToggle.isOn = !isToggleOn;
-            soundToggle.onValueChanged.AddListener(ToggleSound);
         }
         private void OnDestroy()
         {
             closeButton.onClick.RemoveAllListeners();
-            soundToggle.onValueChanged.RemoveAllListeners();
         }
 
         public void CloseSettingsButton()
@@ -46,7 +41,7 @@ namespace _TileJam.Scripts.ViewScripts
             GameManager.Instance.ChangeGameState(GameState.Gameplay);
             OnClose();
         }
-        private void ToggleSound(bool isOn)
+        private void ChangeSoundButton()
         {
             if (PlayerPrefs.GetInt(PlayerPrefKeys.SoundToggle) == 1)
             {
@@ -56,22 +51,24 @@ namespace _TileJam.Scripts.ViewScripts
             {
                 OpenSound();
             }
-
-            isToggleOn = !isOn;
         }
 
+        private void Update()
+        {
+            Debug.Log(PlayerPrefs.GetInt(PlayerPrefKeys.SoundToggle));
+        }
 
         private void CloseSound()
         {
             AudioListener.volume = 0f;
-            isToggleOn = true;
+            closedSprite.enabled = true;
             PlayerPrefs.SetInt(PlayerPrefKeys.SoundToggle, 0);
         }
 
         private void OpenSound()
         {
             AudioListener.volume = 1f;
-            isToggleOn = false;
+            closedSprite.enabled = false;
             PlayerPrefs.SetInt(PlayerPrefKeys.SoundToggle, 1);
         }
     }

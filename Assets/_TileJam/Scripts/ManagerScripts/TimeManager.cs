@@ -21,7 +21,7 @@ namespace _TileJam.Scripts.ManagerScripts
             {
                 Instance = this;
             }
-        }
+        } 
         private void Start()
         {
             currentTime = startTimeInSeconds;
@@ -37,6 +37,8 @@ namespace _TileJam.Scripts.ManagerScripts
                 if (currentTime <= 0f)
                 {
                     currentTime = 0f;
+                    GameManager.Instance.FailLevel(LevelFailType.TimeOut);
+                    ResetTimer();
                 }
             }
         }

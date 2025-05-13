@@ -89,7 +89,6 @@ namespace _TileJam.Scripts.ManagerScripts
             ChangeGameState(GameState.LevelFail);
             currentLevelFailType = levelFailType;
             OnLevelFail?.Invoke();
-            
         }
 
         public void RestartLevel()

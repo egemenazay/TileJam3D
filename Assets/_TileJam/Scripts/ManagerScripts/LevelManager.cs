@@ -1,3 +1,4 @@
+using System;
 using _TileJam.Scripts.KeyScripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -34,6 +35,11 @@ namespace _TileJam.Scripts.ManagerScripts
                 currentLevelIndex++;
                 PlayerPrefs.SetInt(PlayerPrefKeys.LevelIndex, currentLevelIndex);
             }
+        }
+
+        private void Update()
+        {
+            Debug.Log(PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex));
         }
 
         private void OnDestroy()
