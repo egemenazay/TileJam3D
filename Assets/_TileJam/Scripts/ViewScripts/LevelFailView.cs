@@ -44,7 +44,7 @@ namespace _TileJam.Scripts.ViewScripts
             PlayBannerAnimation();
             PlayStarAnimation();
             SetLevelFailType();
-            
+            SoundManager.Instance.PlaySound(SoundType.LevelFailSound);
             return true;
         }
         private void Refresh()

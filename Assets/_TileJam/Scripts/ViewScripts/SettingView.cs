@@ -60,15 +60,15 @@ namespace _TileJam.Scripts.ViewScripts
 
         private void CloseSound()
         {
-            AudioListener.volume = 0f;
             closedSprite.enabled = true;
+            SoundManager.Instance.CloseSound();
             PlayerPrefs.SetInt(PlayerPrefKeys.SoundToggle, 0);
         }
 
         private void OpenSound()
         {
-            AudioListener.volume = 1f;
             closedSprite.enabled = false;
+            SoundManager.Instance.OpenSound();
             PlayerPrefs.SetInt(PlayerPrefKeys.SoundToggle, 1);
         }
     }

@@ -33,7 +33,7 @@ namespace _TileJam.Scripts.ViewScripts
             PlayButtonAnimation();
             PlayBannerAnimation();
             PlayStarAnimation();
-
+            SoundManager.Instance.PlaySound(SoundType.LevelCompleteSound);
             return true;
         }
         private void Refresh()
