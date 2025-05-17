@@ -8,7 +8,9 @@ namespace _TileJam.Scripts.ViewScripts
 {
     public class GameplayView : BaseView
     {
+        [Header("References")]
         [SerializeField] private TMP_Text currentLevelText;
+        [SerializeField] private TMP_Text coinAmountText;
         [SerializeField] private TMP_Text timerText;
         private float currentTime;
         [Header("Info")]
@@ -41,11 +43,11 @@ namespace _TileJam.Scripts.ViewScripts
             currentLevelText.text = "Level: " + fakeLevelIndex;
             UIManager.Instance.OnLoadView(ViewType.Gameplay, 1);
         }
-
         private void OnLevelComplete()
         {
             fakeLevelIndex++;
             UIManager.Instance.OnLoadView(ViewType.LevelComplete, 2);   //** when LevelComplete opens  CompleteView
+            CurrencyManager.Instance.IncreaseCoinAmount(10);
             OnClose();
             SaveFakeLevelIndex();
         }
