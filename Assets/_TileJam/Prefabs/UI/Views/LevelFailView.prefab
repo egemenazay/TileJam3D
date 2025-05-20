@@ -195,6 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewCanvas: {fileID: 923385746471813332}
+  isOpen: 0
   restartButton: {fileID: 806290914621620928}
   bannerRectTransform: {fileID: 8903775886045303885}
   buttonRectTransform: {fileID: 5872733587848423313}

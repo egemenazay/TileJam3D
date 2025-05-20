@@ -378,6 +378,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: EditorOnly
       objectReference: {fileID: 0}
+    - target: {fileID: 1284692136404732871, guid: f6381a1fbaba08746a3973aa0e91d195, type: 3}
+      propertyPath: audio
+      value: 
+      objectReference: {fileID: 2144565517}
+    - target: {fileID: 2459605669057192351, guid: f6381a1fbaba08746a3973aa0e91d195, type: 3}
+      propertyPath: coinGainAmount
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3723566466783853180, guid: f6381a1fbaba08746a3973aa0e91d195, type: 3}
       propertyPath: m_SizeDelta.x
       value: 4000
@@ -684,6 +692,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6427910894613557421, guid: defa624445d58db4cb804ffaf64affe6, type: 3}
   m_PrefabInstance: {fileID: 1882755639}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &2144565517 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5959416280707196601, guid: f6381a1fbaba08746a3973aa0e91d195, type: 3}
+  m_PrefabInstance: {fileID: 1261792865}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &851939442325435473
 PrefabInstance:

@@ -52,12 +52,6 @@ namespace _TileJam.Scripts.ViewScripts
                 OpenSound();
             }
         }
-
-        private void Update()
-        {
-            Debug.Log(PlayerPrefs.GetInt(PlayerPrefKeys.SoundToggle));
-        }
-
         private void CloseSound()
         {
             closedSprite.enabled = true;

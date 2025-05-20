@@ -549,14 +549,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: LoadCurrentScene
       objectReference: {fileID: 0}
-    - target: {fileID: 8521621384737517446, guid: 1b4a89693e7df644bbf911dfd54e3008, type: 3}
-      propertyPath: viewCanvas
-      value: 
-      objectReference: {fileID: 4940225679200650856}
-    - target: {fileID: 8521621384737517446, guid: 1b4a89693e7df644bbf911dfd54e3008, type: 3}
-      propertyPath: buttonRectTransform
-      value: 
-      objectReference: {fileID: 8832564373127674214}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -578,16 +570,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ba6f93106084dc29e31d1c804bd30dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!223 &4940225679200650856 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 1685776566978626791, guid: 1b4a89693e7df644bbf911dfd54e3008, type: 3}
-  m_PrefabInstance: {fileID: 6046682624963166863}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &8832564373127674214 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2988616982145760233, guid: 1b4a89693e7df644bbf911dfd54e3008, type: 3}
-  m_PrefabInstance: {fileID: 6046682624963166863}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7046638453034768998
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -608,14 +590,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelFailView
       objectReference: {fileID: 0}
-    - target: {fileID: 1828393563810514941, guid: 8f11ceeef7f68ad499f1f018c00c136a, type: 3}
-      propertyPath: viewCanvas
-      value: 
-      objectReference: {fileID: 7861655641409084082}
-    - target: {fileID: 1828393563810514941, guid: 8f11ceeef7f68ad499f1f018c00c136a, type: 3}
-      propertyPath: buttonRectTransform
-      value: 
-      objectReference: {fileID: 3479756681230630391}
     - target: {fileID: 3107331283195415596, guid: 8f11ceeef7f68ad499f1f018c00c136a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -705,19 +679,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f11ceeef7f68ad499f1f018c00c136a, type: 3}
---- !u!224 &3479756681230630391 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5872733587848423313, guid: 8f11ceeef7f68ad499f1f018c00c136a, type: 3}
-  m_PrefabInstance: {fileID: 7046638453034768998}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5392432733373634122 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3107331283195415596, guid: 8f11ceeef7f68ad499f1f018c00c136a, type: 3}
-  m_PrefabInstance: {fileID: 7046638453034768998}
-  m_PrefabAsset: {fileID: 0}
---- !u!223 &7861655641409084082 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 923385746471813332, guid: 8f11ceeef7f68ad499f1f018c00c136a, type: 3}
   m_PrefabInstance: {fileID: 7046638453034768998}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &8688976489749126555 stripped

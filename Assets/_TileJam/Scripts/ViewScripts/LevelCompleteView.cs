@@ -34,6 +34,7 @@ namespace _TileJam.Scripts.ViewScripts
             PlayBannerAnimation();
             PlayStarAnimation();
             SoundManager.Instance.PlaySound(SoundType.LevelCompleteSound);
+            CurrencyManager.Instance.IncreaseCoinAmount(5);
             return true;
         }
         private void Refresh()

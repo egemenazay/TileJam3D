@@ -8,6 +8,8 @@ namespace _TileJam.Scripts.ManagerScripts
     {
         [Header("INFO")]
         [SerializeField] private int coinAmount;
+        [Header("Parameters")]
+        public int coinGainAmount;
 
         public static CurrencyManager Instance;
         public event Action<int> OnCoinGain;
@@ -26,14 +28,14 @@ namespace _TileJam.Scripts.ManagerScripts
         } 
         private void Start()
         {
-            GetCoinAmount();
+            coinAmount = PlayerPrefs.GetInt(PlayerPrefKeys.CoinAmount);
         }
 
         public void IncreaseCoinAmount(int amount)
         {
             coinAmount += amount;
             PlayerPrefs.SetInt(PlayerPrefKeys.CoinAmount, coinAmount);
-            OnCoinGain?.Invoke(coinAmount);
+            OnCoinGain?.Invoke(coinGainAmount);
         }
         public void DecreaseCoinAmount(int amount)
         {
@@ -42,9 +44,9 @@ namespace _TileJam.Scripts.ManagerScripts
             OnCoinLose?.Invoke(coinAmount);
         }
         
-        private void GetCoinAmount()
+        public int GetCoinAmount()
         {
-            coinAmount = PlayerPrefs.GetInt(PlayerPrefKeys.CoinAmount);
+            return coinAmount;
         }
     }
 }

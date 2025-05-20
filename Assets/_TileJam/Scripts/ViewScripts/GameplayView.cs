@@ -10,7 +10,6 @@ namespace _TileJam.Scripts.ViewScripts
     {
         [Header("References")]
         [SerializeField] private TMP_Text currentLevelText;
-        [SerializeField] private TMP_Text coinAmountText;
         [SerializeField] private TMP_Text timerText;
         private float currentTime;
         [Header("Info")]
@@ -47,7 +46,6 @@ namespace _TileJam.Scripts.ViewScripts
         {
             fakeLevelIndex++;
             UIManager.Instance.OnLoadView(ViewType.LevelComplete, 2);   //** when LevelComplete opens  CompleteView
-            CurrencyManager.Instance.IncreaseCoinAmount(10);
             OnClose();
             SaveFakeLevelIndex();
         }

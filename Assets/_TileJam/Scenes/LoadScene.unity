@@ -223,6 +223,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2459605669057192351, guid: f6381a1fbaba08746a3973aa0e91d195, type: 3}
+      propertyPath: coinGainAmount
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3257007256822419033, guid: f6381a1fbaba08746a3973aa0e91d195, type: 3}
       propertyPath: m_Enabled
       value: 1
