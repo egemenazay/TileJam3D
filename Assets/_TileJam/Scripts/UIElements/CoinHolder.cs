@@ -1,4 +1,3 @@
-using System;
 using _TileJam.Scripts.ManagerScripts;
 using TMPro;
 using UnityEngine;
@@ -10,7 +9,8 @@ namespace _TileJam.Scripts.UIElements
     {
         [Header("References")]
         [SerializeField] private TMP_Text coinAmountText;
-        private int currentCoinAmount;
+        [Header("Info")]
+        [SerializeField]private int currentCoinAmount;
 
         private void Start()
         {

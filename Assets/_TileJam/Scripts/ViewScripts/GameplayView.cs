@@ -14,6 +14,7 @@ namespace _TileJam.Scripts.ViewScripts
         private float currentTime;
         [Header("Info")]
         [SerializeField] private int fakeLevelIndex; //Level index in UI
+        private Scene scene;
 
         private void Awake()
         {
@@ -30,11 +31,15 @@ namespace _TileJam.Scripts.ViewScripts
             currentLevelText.text = "Level: " + fakeLevelIndex;
             GameManager.Instance.OnLevelComplete += OnLevelComplete;
             GameManager.Instance.OnLevelFail += OnLevelFail;
+            scene = SceneManager.GetActiveScene();
         }
         private void Update()
         {
-            currentTime = TimeManager.Instance.currentTime;
-            UpdateTimerUI();
+            if (scene.name != SceneKeys.LoadScene)
+            {
+                currentTime = TimeManager.Instance.currentTime;
+                UpdateTimerUI();
+            }
         }
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
