@@ -273,6 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8877be99e416a554db35652c9c9154fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  remoteConfig: {fileID: 11400000, guid: 2d2355e2c3cd5a442a36a79d494ca22e, type: 2}
   startTimeInSeconds: 5
   currentTime: 0
 --- !u!1 &2530477578401212368

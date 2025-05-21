@@ -1,4 +1,5 @@
 using System;
+using _TileJam.Scriptable_Objects;
 using _TileJam.Scripts.KeyScripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,11 +8,15 @@ namespace _TileJam.Scripts.ManagerScripts
 {
     public class LevelManager : MonoBehaviour
     {
+        [Header("Remote Config Reference")]
+        [SerializeField] private RemoteConfigDummy remoteConfig;
+
         [Header("Info")]
-        [SerializeField] private int currentLevelIndex;   //level index value equals scene index 
-        [SerializeField] private int totalScenes;  //"0" is loading scene, other values are same with level
+        private int[] levelBuildIndices; // RemoteConfig'ten çekilen build index listesi
+        public int currentLevelIndex; // Bu artık RemoteConfig içindeki sırayı gösterir
 
         public static LevelManager Instance;
+
         private void Awake()
         {
             if (Instance != null)
@@ -23,23 +28,30 @@ namespace _TileJam.Scripts.ManagerScripts
                 Instance = this;
             }
         }
+
         private void Start()
         {
-            totalScenes = SceneManager.sceneCountInBuildSettings;
+            levelBuildIndices = remoteConfig.GetParsedLevels();
+
             GameManager.Instance.OnLevelComplete += OnLevelComplete;
             GameManager.Instance.OnLevelRestart += OnLevelRestart;
             GameManager.Instance.OnLevelFail += OnLevelFail;
-            currentLevelIndex = PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex);
-            if (currentLevelIndex == 0)
+
+            // Load saved level index from PlayerPrefs (not actual scene build index)
+            currentLevelIndex = PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex, 0);
+
+            // Ensure index is in bounds
+            if (currentLevelIndex < 0 || currentLevelIndex >= levelBuildIndices.Length)
             {
-                currentLevelIndex++;
+                currentLevelIndex = 0;
                 PlayerPrefs.SetInt(PlayerPrefKeys.LevelIndex, currentLevelIndex);
             }
         }
 
         private void Update()
         {
-            Debug.Log(PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex));
+            Debug.Log("Current Level Index in RemoteConfig Sequence: " + currentLevelIndex);
+            Debug.Log("Actual Build Index to Load: " + GetCurrentBuildIndex());
         }
 
         private void OnDestroy()
@@ -51,19 +63,19 @@ namespace _TileJam.Scripts.ManagerScripts
 
         private void OnLevelComplete()
         {
-            if (currentLevelIndex < (totalScenes-1))
+            currentLevelIndex++;
+
+            if (currentLevelIndex >= levelBuildIndices.Length)
             {
-                currentLevelIndex++;
+                currentLevelIndex = 0; // Loop back to start
             }
-            else
-            {
-                currentLevelIndex = 1;
-            }
-            PlayerPrefs.SetInt(PlayerPrefKeys.LevelIndex,currentLevelIndex);
+
+            PlayerPrefs.SetInt(PlayerPrefKeys.LevelIndex, currentLevelIndex);
         }
 
         private void OnLevelFail()
         {
+            // Keep same index
             PlayerPrefs.SetInt(PlayerPrefKeys.LevelIndex, currentLevelIndex);
         }
 
@@ -72,17 +84,31 @@ namespace _TileJam.Scripts.ManagerScripts
             if (GameManager.Instance.CurrentGameState == GameState.LevelComplete)
             {
                 currentLevelIndex--;
+                if (currentLevelIndex < 0) currentLevelIndex = 0;
             }
-            LoadCurrentScene();  //for now restart is made by a function automatically, this event launched by a button in future
+            LoadCurrentScene();
         }
-        
-        public void LoadCurrentScene()       
+
+        public void LoadCurrentScene()
         {
-            if (currentLevelIndex < totalScenes)
+            if (currentLevelIndex >= 0 && currentLevelIndex < levelBuildIndices.Length)
             {
+                int buildIndexToLoad = levelBuildIndices[currentLevelIndex];
                 GameManager.Instance.ChangeGameState(GameState.Gameplay);
-                SceneManager.LoadScene(currentLevelIndex, LoadSceneMode.Single);
+                SceneManager.LoadScene(buildIndexToLoad, LoadSceneMode.Single);
             }
+            else
+            {
+                Debug.LogError("Invalid currentLevelIndex: " + currentLevelIndex);
+            }
+        }
+
+        public int GetCurrentBuildIndex()
+        {
+            if (levelBuildIndices != null && currentLevelIndex >= 0 && currentLevelIndex < levelBuildIndices.Length)
+                return levelBuildIndices[currentLevelIndex];
+
+            return -1;
         }
     }
 } 

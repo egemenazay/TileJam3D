@@ -1,17 +1,25 @@
+using _TileJam.Scriptable_Objects;
 using _TileJam.Scripts.ManagerScripts;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+
 namespace _TileJam.Scripts.ViewScripts
 {
     public class LoadingView : BaseView
     {
+        [Header("References")] 
+        [SerializeField] private RemoteConfigDummy remoteConfig;
         [SerializeField] private Image sliderBarImage;
-        
         [Header("Parameters")] //add duration and ease here
-        [SerializeField] private float duration;
+        [SerializeField] private float loadingTime;
 
+
+        public override void Start()
+        {
+            loadingTime = remoteConfig.loadingDuration;
+        }
         public override bool OnOpen(int sortOrder)
         {
             var baseReturnValue = base.OnOpen(sortOrder);
@@ -25,7 +33,7 @@ namespace _TileJam.Scripts.ViewScripts
             if (viewCanvas.enabled)
             {
                 sliderBarImage.fillAmount = 0;
-                sliderBarImage.DOFillAmount(1f, duration)
+                sliderBarImage.DOFillAmount(1f, loadingTime)
                     .SetEase(Ease.OutSine)
                     .OnComplete(OnLoadComplete);
             }

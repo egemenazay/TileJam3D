@@ -1,3 +1,4 @@
+using _TileJam.Scriptable_Objects;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,12 +6,16 @@ namespace _TileJam.Scripts.ManagerScripts
 {
     public class TimeManager : MonoBehaviour
     {
-        [Header("Timer Settings")]
-        [SerializeField] private float startTimeInSeconds = 60f;
+        [Header("References")]
+        [SerializeField] private RemoteConfigDummy remoteConfig;
+        
         [Header("Info DO NOT CHANGE")]
+        [SerializeField] private float startTimeInSeconds;
         public float currentTime;
         public static TimeManager Instance;
-
+        
+        private int[] levelTimers;
+        
         private void Awake()
         {
             if (Instance != null)
@@ -24,6 +29,8 @@ namespace _TileJam.Scripts.ManagerScripts
         } 
         private void Start()
         {
+            levelTimers = remoteConfig.GetParsedLevelTimers();
+            UpdateTimerFromRemoteConfig();
             currentTime = startTimeInSeconds;
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
@@ -40,6 +47,19 @@ namespace _TileJam.Scripts.ManagerScripts
                     GameManager.Instance.FailLevel(LevelFailType.TimeOut);
                     ResetTimer();
                 }
+            }
+        }
+        private void UpdateTimerFromRemoteConfig()
+        {
+            int currentLevelIndex = LevelManager.Instance.currentLevelIndex;
+
+            if (levelTimers != null && currentLevelIndex >= 0 && currentLevelIndex < levelTimers.Length)
+            {
+                startTimeInSeconds = levelTimers[currentLevelIndex];
+            }
+            else
+            {
+                Debug.LogWarning("Timer not found for current level index, using fallback.");
             }
         }
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

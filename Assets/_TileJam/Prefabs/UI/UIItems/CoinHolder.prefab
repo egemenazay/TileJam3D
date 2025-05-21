@@ -316,8 +316,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6081948323754670523}
-  - {fileID: 6804332697143728288}
   - {fileID: 4599269060879093327}
+  - {fileID: 6804332697143728288}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -338,3 +338,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinAmountText: {fileID: 2797596503116415278}
+  currentCoinAmount: 0
