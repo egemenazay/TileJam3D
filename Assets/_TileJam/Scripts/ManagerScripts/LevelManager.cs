@@ -12,8 +12,8 @@ namespace _TileJam.Scripts.ManagerScripts
         [SerializeField] private RemoteConfigDummy remoteConfig;
 
         [Header("Info")]
-        private int[] levelBuildIndices; // RemoteConfig'ten çekilen build index listesi
-        public int currentLevelIndex; // Bu artık RemoteConfig içindeki sırayı gösterir
+        private int[] levelBuildIndices;
+        public int currentLevelIndex; 
 
         public static LevelManager Instance;
 
@@ -38,7 +38,7 @@ namespace _TileJam.Scripts.ManagerScripts
             GameManager.Instance.OnLevelFail += OnLevelFail;
 
             // Load saved level index from PlayerPrefs (not actual scene build index)
-            currentLevelIndex = PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex, 0);
+            currentLevelIndex = PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex);
 
             // Ensure index is in bounds
             if (currentLevelIndex < 0 || currentLevelIndex >= levelBuildIndices.Length)
@@ -75,18 +75,12 @@ namespace _TileJam.Scripts.ManagerScripts
 
         private void OnLevelFail()
         {
-            // Keep same index
-            PlayerPrefs.SetInt(PlayerPrefKeys.LevelIndex, currentLevelIndex);
+            
         }
 
         private void OnLevelRestart()
         {
-            if (GameManager.Instance.CurrentGameState == GameState.LevelComplete)
-            {
-                currentLevelIndex--;
-                if (currentLevelIndex < 0) currentLevelIndex = 0;
-            }
-            LoadCurrentScene();
+            //GONNA REMAKE
         }
 
         public void LoadCurrentScene()

@@ -16,9 +16,8 @@ namespace _TileJam.Scripts.ViewScripts
             base.Start();
             closeButton.onClick.AddListener(CloseSettingsButton);
             soundButton.onClick.AddListener(ChangeSoundButton);
-            if (PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex) == 0)
+            if (!PlayerPrefs.HasKey(PlayerPrefKeys.SoundToggle))
             {
-                Debug.Log(PlayerPrefs.GetInt(PlayerPrefKeys.LevelIndex));
                 PlayerPrefs.SetInt(PlayerPrefKeys.SoundToggle, 1);
             }
 
