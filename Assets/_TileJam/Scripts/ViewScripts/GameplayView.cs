@@ -2,6 +2,7 @@ using _TileJam.Scripts.KeyScripts;
 using _TileJam.Scripts.ManagerScripts;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 namespace _TileJam.Scripts.ViewScripts
@@ -9,6 +10,8 @@ namespace _TileJam.Scripts.ViewScripts
     public class GameplayView : BaseView
     {
         [Header("References")]
+        [SerializeField] private Button settingsButton;
+        [SerializeField] private Button restartButton;
         [SerializeField] private TMP_Text currentLevelText;
         [SerializeField] private TMP_Text timerText;
         private float currentTime;
@@ -29,6 +32,8 @@ namespace _TileJam.Scripts.ViewScripts
                 SaveFakeLevelIndex();
             }
             currentLevelText.text = "Level: " + fakeLevelIndex;
+            settingsButton.onClick.AddListener(OpenSettingsButton);
+            restartButton.onClick.AddListener(RestartButton);
             GameManager.Instance.OnLevelComplete += OnLevelComplete;
             GameManager.Instance.OnLevelFail += OnLevelFail;
             scene = SceneManager.GetActiveScene();
@@ -64,6 +69,10 @@ namespace _TileJam.Scripts.ViewScripts
             UIManager.Instance.OnLoadView(ViewType.Setting, 2);
             GameManager.Instance.ChangeGameState(GameState.UI);
         }
+        public void RestartButton()
+        {
+            LevelManager.Instance.LoadCurrentScene();
+        }
         private void SaveFakeLevelIndex()
         {
             PlayerPrefs.SetInt(PlayerPrefKeys.FakeLevelIndex,fakeLevelIndex);
@@ -80,6 +89,8 @@ namespace _TileJam.Scripts.ViewScripts
         private void OnDestroy()
         {
             SceneManager.sceneLoaded -= OnSceneLoaded;
+            restartButton.onClick.RemoveAllListeners();
+            settingsButton.onClick.RemoveAllListeners();
         }
     }
 }

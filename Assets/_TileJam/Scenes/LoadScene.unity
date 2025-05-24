@@ -219,6 +219,10 @@ PrefabInstance:
       propertyPath: audio
       value: 
       objectReference: {fileID: 183770319}
+    - target: {fileID: 1284692136404732871, guid: f6381a1fbaba08746a3973aa0e91d195, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 183770319}
     - target: {fileID: 2149600827811312576, guid: f6381a1fbaba08746a3973aa0e91d195, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

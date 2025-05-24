@@ -17,6 +17,27 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_TileJam/Scenes/Level3.unity
     guid: 74ab9a87aefedc74a9d05dac82e87417
+  - enabled: 1
+    path: Assets/_TileJam/Scenes/Level4.unity
+    guid: bc901046c3e9f1747a4abdac85ca9505
+  - enabled: 1
+    path: Assets/_TileJam/Scenes/Level5.unity
+    guid: c5e70d20a6c2ccd488a62fed792625bb
+  - enabled: 1
+    path: Assets/_TileJam/Scenes/Level6.unity
+    guid: c47d0763c9b764448a198d90afab3d6a
+  - enabled: 1
+    path: Assets/_TileJam/Scenes/Level7.unity
+    guid: fa5ea51404ad499459050998f04a6f02
+  - enabled: 1
+    path: Assets/_TileJam/Scenes/Level8.unity
+    guid: 38da8fa79ba9b374fac39e596fce0f95
+  - enabled: 1
+    path: Assets/_TileJam/Scenes/Level9.unity
+    guid: 772512db4db8d30488326325a3a36803
+  - enabled: 1
+    path: Assets/_TileJam/Scenes/Level10.unity
+    guid: 19b69959ecdce3b4cb21c1c91861b37d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
