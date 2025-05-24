@@ -53,12 +53,29 @@ namespace _TileJam.Scripts.ManagerScripts
                 }
             }
         }
-
+#if UNITY_EDITOR
         private void Update()
         {
             Debug.Log("SoundToggle PlayerPref" +PlayerPrefs.GetInt(PlayerPrefKeys.SoundToggle));
             Debug.Log("AudioListener Volume" + AudioListener.volume);
+            if (Input.GetKeyDown(KeyCode.Keypad1))
+            {
+                PlaySound(SoundType.LevelCompleteSound);
+            }
+            if (Input.GetKeyDown(KeyCode.Keypad2))
+            {
+                PlaySound(SoundType.LevelFailSound);
+            }
+            if (Input.GetKeyDown(KeyCode.Keypad3))
+            {
+                PlaySound(SoundType.TapSound);
+            }
+            if (Input.GetKeyDown(KeyCode.Keypad4))
+            {
+                PlaySound(SoundType.CoinSound);
+            }
         }
+#endif
 
         public void CloseSound()
         {
