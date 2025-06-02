@@ -1,9 +1,9 @@
 using _TileJam.Scripts.ManagerScripts;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using DG.Tweening;
 
-namespace _TileJam.Scripts.UIElements
+namespace _TileJam.Scripts.UI_Scripts
 {
     public class CoinHolder : MonoBehaviour
     {

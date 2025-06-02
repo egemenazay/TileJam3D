@@ -293,6 +293,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: EditorOnly
       objectReference: {fileID: 0}
+    - target: {fileID: 2459605669057192351, guid: f6381a1fbaba08746a3973aa0e91d195, type: 3}
+      propertyPath: coinGainAmount
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2838423482690565932, guid: f6381a1fbaba08746a3973aa0e91d195, type: 3}
       propertyPath: m_LocalScale.x
       value: 2

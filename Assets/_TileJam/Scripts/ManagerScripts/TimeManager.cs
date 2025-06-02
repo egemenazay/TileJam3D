@@ -1,4 +1,4 @@
-using _TileJam.Scriptable_Objects;
+using _TileJam.Scripts.RemoteConfig;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

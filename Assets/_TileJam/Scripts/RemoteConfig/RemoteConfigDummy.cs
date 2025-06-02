@@ -1,7 +1,7 @@
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 
-namespace _TileJam.Scriptable_Objects
+namespace _TileJam.Scripts.RemoteConfig
 {
     [CreateAssetMenu(fileName = "RemoteConfigDummy", menuName =("ScriptableObjects/RemoteConfigDummy"))]
     public class RemoteConfigDummy : ScriptableObject

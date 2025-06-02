@@ -1,0 +1,77 @@
+{
+  "$id": "1",
+  "$type": "_TileJam.Scripts.LevelCreatorScripts.LevelData.LevelData, Assembly-CSharp",
+  "width": 3,
+  "height": 4,
+  "gridCells": {
+    "$type": "_TileJam.Scripts.LevelEditorScripts.Grid.GridCell[,], Assembly-CSharp",
+    "$values": [
+      [
+        {
+          "$id": "2",
+          "$type": "_TileJam.Scripts.LevelEditorScripts.Grid.GridCell, Assembly-CSharp",
+          "isOccupied": false
+        },
+        {
+          "$id": "3",
+          "$type": "_TileJam.Scripts.LevelEditorScripts.Grid.GridCell, Assembly-CSharp",
+          "isOccupied": false
+        },
+        {
+          "$id": "4",
+          "$type": "_TileJam.Scripts.LevelEditorScripts.Grid.GridCell, Assembly-CSharp",
+          "isOccupied": false
+        },
+        {
+          "$id": "5",
+          "$type": "_TileJam.Scripts.LevelEditorScripts.Grid.GridCell, Assembly-CSharp",
+          "isOccupied": false
+        }
+      ],
+      [
+        {
+          "$id": "6",
+          "$type": "_TileJam.Scripts.LevelEditorScripts.Grid.GridCell, Assembly-CSharp",
+          "isOccupied": false
+        },
+        {
+          "$id": "7",
+          "$type": "_TileJam.Scripts.LevelEditorScripts.Grid.GridCell, Assembly-CSharp",
+          "isOccupied": false
+        },
+        {
+          "$id": "8",
+          "$type": "_TileJam.Scripts.LevelEditorScripts.Grid.GridCell, Assembly-CSharp",
+          "isOccupied": false
+        },
+        {
+          "$id": "9",
+          "$type": "_TileJam.Scripts.LevelEditorScripts.Grid.GridCell, Assembly-CSharp",
+          "isOccupied": false
+        }
+      ],
+      [
+        {
+          "$id": "10",
+          "$type": "_TileJam.Scripts.LevelEditorScripts.Grid.GridCell, Assembly-CSharp",
+          "isOccupied": false
+        },
+        {
+          "$id": "11",
+          "$type": "_TileJam.Scripts.LevelEditorScripts.Grid.GridCell, Assembly-CSharp",
+          "isOccupied": false
+        },
+        {
+          "$id": "12",
+          "$type": "_TileJam.Scripts.LevelEditorScripts.Grid.GridCell, Assembly-CSharp",
+          "isOccupied": false
+        },
+        {
+          "$id": "13",
+          "$type": "_TileJam.Scripts.LevelEditorScripts.Grid.GridCell, Assembly-CSharp",
+          "isOccupied": false
+        }
+      ]
+    ]
+  }
+}
