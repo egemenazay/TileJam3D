@@ -3,7 +3,7 @@ using _TileJam.Scripts.ManagerScripts;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _TileJam.Scripts.ViewScripts
+namespace _TileJam.Scripts.UIScripts.ViewScripts
 {
     public class SettingView : BaseView
     {

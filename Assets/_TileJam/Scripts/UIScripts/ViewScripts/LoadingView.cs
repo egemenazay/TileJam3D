@@ -1,11 +1,11 @@
 using _TileJam.Scripts.ManagerScripts;
 using _TileJam.Scripts.RemoteConfig;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
-namespace _TileJam.Scripts.ViewScripts
+namespace _TileJam.Scripts.UIScripts.ViewScripts
 {
     public class LoadingView : BaseView
     {

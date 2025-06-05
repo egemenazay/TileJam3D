@@ -2,10 +2,10 @@ using _TileJam.Scripts.KeyScripts;
 using _TileJam.Scripts.ManagerScripts;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-namespace _TileJam.Scripts.ViewScripts
+namespace _TileJam.Scripts.UIScripts.ViewScripts
 {
     public class GameplayView : BaseView
     {

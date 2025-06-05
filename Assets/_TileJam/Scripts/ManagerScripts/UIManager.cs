@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using _TileJam.Scripts.KeyScripts;
-using _TileJam.Scripts.ViewScripts;
+using _TileJam.Scripts.UIScripts.ViewScripts;
 
 
 namespace _TileJam.Scripts.ManagerScripts

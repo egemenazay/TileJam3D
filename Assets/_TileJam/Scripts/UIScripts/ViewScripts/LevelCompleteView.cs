@@ -3,8 +3,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-namespace _TileJam.Scripts.ViewScripts
+namespace _TileJam.Scripts.UIScripts.ViewScripts
 {
     public class LevelCompleteView : BaseView
     {

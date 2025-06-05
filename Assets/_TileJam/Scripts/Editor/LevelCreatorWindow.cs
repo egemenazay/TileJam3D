@@ -1,5 +1,4 @@
-using _TileJam.Scripts.LevelCreatorScripts.LevelData;
-using _TileJam.Scripts.LevelEditorScripts.Grid;
+using _TileJam.Scripts.LevelCreatorScripts;
 using _TileJam.Scripts.ManagerScripts;
 using UnityEditor;
 using UnityEngine;
@@ -32,10 +31,10 @@ namespace _TileJam.Scripts.Editor
 
             if (GUILayout.Button("Load Level"))
             {
-                levelData = LevelDataManager.LoadLevelData(levelIndex);
+                levelData = LevelSaveSystem.LoadLevelData(levelIndex);
                 if (levelData == null)
                 {
-                    Debug.Log($"[LevelCreator] Level {levelIndex} bulunamadı, yeni level oluşturuluyor.");
+                    Debug.Log($"[LevelCreator] Level {levelIndex} not found, creating new level.");
                     levelData = new LevelData();
                     levelData.Initialize(defaultWidth, defaultHeight);
                 }
@@ -45,8 +44,8 @@ namespace _TileJam.Scripts.Editor
             {
                 if (GUILayout.Button("Save Level"))
                 {
-                    LevelDataManager.SaveLevelData(levelData, levelIndex);
-                    Debug.Log($"[LevelCreator] Level {levelIndex} kaydedildi.");
+                    LevelSaveSystem.SaveLevelData(levelData, levelIndex);
+                    Debug.Log($"[LevelCreator] Level {levelIndex} saved");
                 }
 
                 GUILayout.Space(10);

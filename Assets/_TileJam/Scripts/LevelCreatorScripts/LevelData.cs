@@ -1,6 +1,4 @@
-using _TileJam.Scripts.LevelEditorScripts.Grid;
-
-namespace _TileJam.Scripts.LevelCreatorScripts.LevelData
+namespace _TileJam.Scripts.LevelCreatorScripts
 { 
     [System.Serializable]
     public class LevelData

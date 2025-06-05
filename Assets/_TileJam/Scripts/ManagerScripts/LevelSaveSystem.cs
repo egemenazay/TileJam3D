@@ -1,11 +1,11 @@
 using System.IO;
-using _TileJam.Scripts.LevelCreatorScripts.LevelData;
+using _TileJam.Scripts.LevelCreatorScripts;
 using Newtonsoft.Json;
 using UnityEngine;
 
 namespace _TileJam.Scripts.ManagerScripts
 {
-    public class LevelDataManager
+    public  static class LevelSaveSystem
     {
         private static string GetFilePath(int index)
         {
@@ -24,7 +24,7 @@ namespace _TileJam.Scripts.ManagerScripts
             string json = JsonConvert.SerializeObject(levelData, settings);
             string path = GetFilePath(index);
 
-            Directory.CreateDirectory(Path.GetDirectoryName(path));
+            Directory.CreateDirectory(Path.GetDirectoryName(path) ?? string.Empty);
             File.WriteAllText(path, json);
         }
 

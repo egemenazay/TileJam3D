@@ -3,7 +3,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-namespace _TileJam.Scripts.UI_Scripts
+namespace _TileJam.Scripts.UIScripts.UIHelperScripts
 {
     public class CoinHolder : MonoBehaviour
     {

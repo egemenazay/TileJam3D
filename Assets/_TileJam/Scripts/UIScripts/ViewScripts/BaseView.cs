@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace _TileJam.Scripts.ViewScripts
+namespace _TileJam.Scripts.UIScripts.ViewScripts
 {
     public abstract class BaseView : MonoBehaviour
     {

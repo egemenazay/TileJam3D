@@ -1,6 +1,4 @@
-using UnityEngine;
-
-namespace _TileJam.Scripts.LevelEditorScripts.Grid
+namespace _TileJam.Scripts.LevelCreatorScripts
 {
     [System.Serializable]
     public struct GridCell
